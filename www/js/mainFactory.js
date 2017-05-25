@@ -39,7 +39,6 @@ app.factory('mainFactory', function($http, $location, $cookies, $state){
 		};
 
 		factory.getOneTrainer = function(id, callback){
-			console.log(id)
 			var userCheck = angular.fromJson(window.localStorage['savedUser'])
 			if(userCheck.id == id) {
 				$http.get('https://vast-depths-36442.herokuapp.com/trainers/trainers/'+id+'.json').then(function(data){
@@ -48,6 +47,15 @@ app.factory('mainFactory', function($http, $location, $cookies, $state){
 			} else {
 				$state.go('trainers', {id: userCheck.id} )
 			}
+		}
+
+		factory.removeTrainee = function(id, callback) {
+			var userCheck = angular.fromJson(window.localStorage['savedUser']);
+			var trainer_id = userCheck.id
+			$http.delete('https://vast-depths-36442.herokuapp.com/'+id, ({params:{trainer_id: trainer_id}})).then(function(data){
+				console.log(data, 'remove factory')
+				callback(data)
+			})
 		}
 
 	return factory

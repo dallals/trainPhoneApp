@@ -5,13 +5,14 @@
 		<input type="search" placeholder="Search" ng-model='filter_name'>
 	</label>
 	<button class="button button-calm button-block" ng-click="">Add Client</button>
-		<div class="list card">
-			<a ng-click="showTrainee(trainee)" class="item" ng-repeat="trainee in trainees | filter: filter_name">
+		<ion-list>
+			<ion-item ng-click="showTrainee(trainee)" class="item-remove-animate" ng-repeat="trainee in trainees | filter: filter_name">
 				<h3>{{trainee.first_name}} {{trainee.last_name}}</h3>
 				<h4>{{trainee.email}}</h4>
 				<p>{{trainee.created_at | date: 'MMM dd, yyyy h:mm a'}}</p>
-			</a>
-		</div>
+				<ion-option-button class="button-assertive" ng-click="removeTrainee(trainee.id)">Delete</ion-option-button>
+			</ion-item>
+		</ion-list>
 	<button ng-controller="indexController" class="button button-assertive button-block" ng-click="signOutUser()">Log Out</button>
 	</ion-content>
 </ion-view>

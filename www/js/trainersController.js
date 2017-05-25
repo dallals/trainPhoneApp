@@ -39,4 +39,14 @@ app.controller('trainersController', function($scope, $http, mainFactory, $cooki
 			$scope.trainee = null;
 		}
 
+		$scope.removeTrainee = function(id) {
+			mainFactory.removeTrainee(id, function(data) {
+				$scope.trainees = data.data
+			})
+		}
+
+
+
+
+
 })
