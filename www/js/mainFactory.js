@@ -1,15 +1,14 @@
 
 app.factory('mainFactory', function($http, $location, $cookies, $state){
 	var factory = {}
+	// var userCheck = angular.fromJson(window.localStorage['savedUser'] || '')
+	$http.defaults.headers.common.Authorization = angular.fromJson(window.localStorage['authToken'] || '[]')
 
 		factory.signInTrainer = function(trainer, callback){
 			$http.post('https://vast-depths-36442.herokuapp.com/trainers/authenticate.json', trainer).then(function(data) {
-				userCheck = $cookies.getObject('userCookie');
 				if(data.data.success === false){
 					// console.log(data.data)
 				} else {
-					userCheck = $cookies.getObject('userCookie');
-					// console.log(data)
 					callback(data.data)
 				}
 			})
@@ -38,6 +37,18 @@ app.factory('mainFactory', function($http, $location, $cookies, $state){
 				callback(data)
 			})
 		};
+
+		factory.getOneTrainer = function(id, callback){
+			console.log(id)
+			var userCheck = angular.fromJson(window.localStorage['savedUser'])
+			if(userCheck.id == id) {
+				$http.get('https://vast-depths-36442.herokuapp.com/trainers/trainers/'+id+'.json').then(function(data){
+					callback(data)
+				})			
+			} else {
+				$state.go('trainers', {id: userCheck.id} )
+			}
+		}
 
 	return factory
 })
