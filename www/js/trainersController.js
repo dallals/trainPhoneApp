@@ -17,10 +17,17 @@ app.controller('trainersController', function($scope, $http, mainFactory, $cooki
 			$scope.trainer = data.data
 		})
 
+
 		mainFactory.getTrainersTrainees(trainer_id, function(data) {
-			// console.log($http.defaults.headers.common.Authorization)
 			$scope.trainees = data.data
 		})
+
+		$scope.reloadTrainees = function(){
+			mainFactory.getTrainersTrainees(trainer_id, function(data) {
+				$scope.trainees = data.data
+				$scope.$broadcast('scroll.refreshComplete');
+			})
+		}
 
 		$scope.showTrainee = function(trainee) {
 			$state.go('trainee', {id: trainee.id})

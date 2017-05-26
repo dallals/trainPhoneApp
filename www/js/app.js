@@ -29,7 +29,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider.state('signuptrainee', {
     url: '/signuptrainee',
     templateUrl: 'partials/signuptrainee.html',
-    controller: 'traineeSignUpController'
+    controller: 'traineesController'
   });
 
   $urlRouterProvider.otherwise('/index');

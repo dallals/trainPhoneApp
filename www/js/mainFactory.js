@@ -1,8 +1,10 @@
 
 app.factory('mainFactory', function($http, $location, $cookies, $state){
 	var factory = {}
+	var trainersTrainees
 	// var userCheck = angular.fromJson(window.localStorage['savedUser'] || '')
 	$http.defaults.headers.common.Authorization = angular.fromJson(window.localStorage['authToken'] || '[]')
+
 
 		factory.signInTrainer = function(trainer, callback){
 			$http.post('https://vast-depths-36442.herokuapp.com/trainers/authenticate.json', trainer).then(function(data) {
@@ -60,7 +62,7 @@ app.factory('mainFactory', function($http, $location, $cookies, $state){
 
 		factory.signUpTrainee = function(trainee, callback){
 			$http.post('https://vast-depths-36442.herokuapp.com/trainees/register.json', trainee).then(function(data){
-				console.log(data)
+				trainersTrainees = data
 				callback(data)
 			})
 		};
