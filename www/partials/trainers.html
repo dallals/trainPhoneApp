@@ -4,15 +4,29 @@
 		<i class="icon ion-search placeholder-icon"></i>
 		<input type="search" placeholder="Search" ng-model='filter_name'>
 	</label>
-	<button class="button button-calm button-block" ng-click="">Add Client</button>
 		<ion-list>
-			<ion-item ng-click="showTrainee(trainee)" class="item-remove-animate" ng-repeat="trainee in trainees | filter: filter_name">
+			<ion-item ng-click="showTrainee(trainee)" class="item-remove-animate item-icon-right" ng-repeat="trainee in trainees | filter: filter_name">
 				<h3>{{trainee.first_name}} {{trainee.last_name}}</h3>
 				<h4>{{trainee.email}}</h4>
 				<p>{{trainee.created_at | date: 'MMM dd, yyyy h:mm a'}}</p>
-				<ion-option-button class="button-assertive" ng-click="removeTrainee(trainee.id)">Delete</ion-option-button>
+				<i class="icon ion-arrow-right-b"></i>
+				<ion-option-button class="button-assertive icon-left ion-trash-b" ng-click="removeTrainee(trainee)">Delete</ion-option-button>
 			</ion-item>
 		</ion-list>
-	<button ng-controller="indexController" class="button button-assertive button-block" ng-click="signOutUser()">Log Out</button>
 	</ion-content>
+	<div class="bar bar-footer bar-stable">
+		<button ng-controller="indexController" class="button button-assertive" ng-click="signOutUser()">Log Out</button>
+		<button class="button button-calm" ng-click="signUp()">Add Client</button>
+	</div>
 </ion-view>
+
+<!-- <script id="sign-modal.html" type="text/ng-template">
+  <ion-modal-view>
+    <ion-header-bar>
+      <h1 class="title">My Modal title</h1>
+    </ion-header-bar>
+    <ion-content>
+      Hello!
+    </ion-content>
+  </ion-modal-view>
+</script> -->

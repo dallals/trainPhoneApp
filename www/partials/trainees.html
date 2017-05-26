@@ -1,11 +1,16 @@
-<ion-view view-title="Trainers Page">
+<ion-view view-title="Client Page">
 	<ion-content>
-		<div class="list card">
-			<a ng-click="showTrainee(trainee)" class="item" ng-repeat="exercise in exercises">
+		<ion-list>
+			<ion-item ng-click="showExercise(exercise.exerciseid)" class="item-icon-right item-remove-animate" ng-repeat="exercise in exercises">
+				<h1>{{exercise.exercisetypename}}</h1>
 				<h3>{{exercise.created_at | date: 'MMM dd, yyyy h:mm a'}}</h3>
-				<h4>{{exercise.exercisetypename}}</h4>
-				<button class="button button-block button-positive" ng-click="showExercise(exercise.exerciseid)">Show Workout</button>
-			</a>
-		</div>
+				<i class="icon ion-arrow-right-b"></i>
+				<ion-option-button class="button-assertive icon-left ion-trash-b" ng-click="">Delete</ion-option-button>
+			</ion-item>
+		</ion-list>
 	</ion-content>
+	<div class="bar bar-footer bar-stable">
+		<button ng-controller="indexController" class="button button-assertive" ng-click="signOutUser()">Log Out</button>
+		<button class="button button-positive" ng-click="addWorkOut()">New Workout</button>
+	</div>
 </ion-view>

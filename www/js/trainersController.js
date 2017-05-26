@@ -26,27 +26,27 @@ app.controller('trainersController', function($scope, $http, mainFactory, $cooki
 			$state.go('trainee', {id: trainee.id})
 		}
 
-		$scope.signUpTrainee = function (trainee) {
-			trainer_id = angular.fromJson(window.localStorage['savedUser']).id
-			trainee.trainer_id = trainer_id
-			console.log(trainee)
-			mainFactory.signUpTrainee(trainee, function(data) {
-				$scope.trainees = data.data;
-				clearForm();
-			})
-		}
 		var clearForm = function() {
 			$scope.trainee = null;
 		}
 
-		$scope.removeTrainee = function(id) {
-			mainFactory.removeTrainee(id, function(data) {
+		$scope.removeTrainee = function(trainee) {
+			mainFactory.removeTrainee(trainee, function(data) {
 				$scope.trainees = data.data
 			})
 		}
 
+		$scope.signUp = function() {
+			$state.go('signuptrainee')
+		}
 
-
-
+	$scope.signUpTrainee = function (trainee) {
+		trainer_id = angular.fromJson(window.localStorage['savedUser']).id
+		trainee.trainer_id = trainer_id
+		mainFactory.signUpTrainee(trainee, function(data) {
+			$scope.trainees = data.data;
+			$state.go('trainers')
+		})
+	}
 
 })
