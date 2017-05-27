@@ -1,15 +1,6 @@
-app.controller('trainersController', function($scope, $http, mainFactory, $cookies, $location, $state, $stateParams) {
+app.controller('trainersController', function($scope, $http, mainFactory, $cookies, $location, $state, $stateParams, $window) {
 
-		// if(!$cookies.getObject('userCookie')){
-		// 	$state.go('index')
-		// } else {
-		// 	var trainer_id = $cookies.getObject('userCookie').id
-		// 	// var trainer_id = window.localStorage['savedUser']
-		// }
-
-		if(angular.fromJson(window.localStorage['authToken']) == '[]'){
-			$state.go('index')
-		}
+		// console.log(angular.fromJson(window.localStorage['savedUser']))
 
 		var trainer_id = angular.fromJson(window.localStorage['savedUser']).id
 
@@ -53,6 +44,7 @@ app.controller('trainersController', function($scope, $http, mainFactory, $cooki
 		mainFactory.signUpTrainee(trainee, function(data) {
 			$scope.trainees = data.data;
 			$state.go('trainers')
+			$window.location.reload();
 		})
 	}
 

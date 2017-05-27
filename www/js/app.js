@@ -31,6 +31,16 @@ app.config(function($stateProvider, $urlRouterProvider) {
     templateUrl: 'partials/signuptrainee.html',
     controller: 'traineesController'
   });
+  $stateProvider.state('addExercise', {
+    url: '/trainees/:id',
+    templateUrl: 'partials/addexercise.html',
+    controller: 'traineesController'
+  });
+  $stateProvider.state('addSet', {
+    url: '/exercise/:id',
+    templateUrl: 'partials/addset.html',
+    controller: 'exerciseController'
+  });
 
   $urlRouterProvider.otherwise('/index');
 })

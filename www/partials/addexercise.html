@@ -1,0 +1,24 @@
+<ion-view>
+  <ion-content ng-controller="traineesController">
+    <div class="list">
+      <div class="item item-input">
+        <input type="text" ng-model="exercise.name" placeholder="name">
+      </div>
+      <label class="item item-input item-select">
+        <div class="input-label">
+          Type of Workout
+        </div>
+        <select name="type" id="type" ng-model="exercise.type">
+          <option value="">Select Type</option>
+          <option value="Chest">Chest</option>
+          <option value="Back">Back</option>
+          <option value="Legs">Legs</option>
+          <option value="Arms">Arms</option>
+          <option value="Abdomen">Abdomen</option>
+        </select>        
+      </label>
+    <div class="padding">
+      <button class="button button-block button-assertive" ng-click="addExercise(exercise)">Submit</button>
+    </div>
+  </ion-content>
+</ion-view>

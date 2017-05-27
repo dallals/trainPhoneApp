@@ -1,8 +1,11 @@
 <ion-view view-title="Client Page">
 	<ion-content>
+	<button class="button button-balanced button-block" ng-click="clientButton()">All Clients</button>
+	<ion-refresher pulling-text="Pull to refresh" on-refresh="reloadTraineesExercise()"></ion-refresher>
 		<ion-list>
 			<ion-item ng-click="showExercise(exercise.exerciseid)" class="item-icon-right item-remove-animate" ng-repeat="exercise in exercises">
 				<h1>{{exercise.exercisetypename}}</h1>
+				<h2> Exercise Name: {{exercise.exercisename}}</h2>
 				<h3>{{exercise.created_at | date: 'MMM dd, yyyy h:mm a'}}</h3>
 				<i class="icon ion-arrow-right-b"></i>
 				<ion-option-button class="button-assertive icon-left ion-trash-b" ng-click="">Delete</ion-option-button>
@@ -11,6 +14,6 @@
 	</ion-content>
 	<div class="bar bar-footer bar-stable">
 		<button ng-controller="indexController" class="button button-assertive" ng-click="signOutUser()">Log Out</button>
-		<button class="button button-positive" ng-click="addWorkOut()">New Workout</button>
+		<button class="button button-positive" ng-click="addWorkOut(trainee.id)">New Workout</button>
 	</div>
 </ion-view>
