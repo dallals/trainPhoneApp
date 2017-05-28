@@ -1,5 +1,5 @@
 
-app.controller('traineesController', function($scope, mainFactory, $cookies, $stateParams, $state, $window) {
+app.controller('traineesController', function($scope, mainFactory, $cookies, $stateParams, $state, $window, $ionicPopup) {
 
 	mainFactory.getOneTrainee($stateParams.id, function(data){
 		$scope.trainee = data.data[0]
@@ -17,16 +17,21 @@ app.controller('traineesController', function($scope, mainFactory, $cookies, $st
 		$scope.exercises = data
 	})
 
+
 	$scope.addExercise = function(exercise) {
+		console.log(exercise)
 		exercise.trainer_id = angular.fromJson(window.localStorage['savedUser']).id
 		mainFactory.addExercise(exercise, $stateParams.id, function(data){
-		})
-		mainFactory.getAllTraineeExercises($stateParams.id, function(data){
-			$scope.listExcersize = data 
-			$state.go('trainee', {id: $scope.trainee.id})
 			$scope.exercises = data
-			// $window.location.reload();
+			console.log($scope.exercises)
+			$state.go('trainee', {id: $scope.trainee.id})
 		})
+		// mainFactory.getAllTraineeExercises($stateParams.id, function(data){
+		// 	$scope.listExcersize = data 
+		// 	$state.go('trainee', {id: $scope.trainee.id})
+		// 	$scope.exercises = data
+		// 	// $window.location.reload();
+		// })
 	}
 
 	var clearForm = function() {

@@ -1,25 +1,29 @@
-app.controller('exerciseController', ["$scope", 'mainFactory','$http', '$location', '$cookies', '$stateParams', '$state', '$window',
-	function($scope, mainFactory, $http, $location, $cookies, $stateParams, $state, $window){
+app.controller('exerciseController', ["$scope", 'mainFactory','$http', '$location', '$cookies', '$stateParams', '$state', '$timeout',
+	function($scope, mainFactory, $http, $location, $cookies, $stateParams, $state, $timeout){
+
+
+		console.log($stateParams.id, 'exercise')
 
 
 		mainFactory.getOneExercise($stateParams.id, function(data){
-			console.log(data.data, 'controller')
-			window.sammyID = $stateParams.id
-			$scope.exercises = data.data
+			// window.ID37632 = $stateParams.id
+			console.log(data)
+			$scope.exercises = data.data;
 		})
 
 		$scope.addSet = function() {
-			$state.go('addSet', {id: sammyID})
+			$state.go('addSet', {id: $stateParams.id})
 		}
 
 		$scope.sendSet = function(set) {
 			mainFactory.addSet($stateParams.id, set, function(data){
+				// $state.go('exercise', {id: $scope.exercises[0].exerciseid})
 			})
 			mainFactory.getOneExercise($stateParams.id, function(data){
 				$scope.exercises = data.data
 				$state.go('exercise', {id: $scope.exercises[0].exerciseid})
-				// $window.location.reload();
 			})
+
 		}
 
 		$scope.refreshSet = function() {
@@ -28,9 +32,15 @@ app.controller('exerciseController', ["$scope", 'mainFactory','$http', '$locatio
 				$scope.$broadcast('scroll.refreshComplete');
 			})
 		}
-		
+
 	$scope.clientButton = function(){
 		$state.go('trainers')
+	}
+
+	$scope.removeSet = function(setid) {
+		mainFactory.removeSet($stateParams.id, setid, function(data) {
+			$scope.exercises = data.data;
+		})
 	}
 
 }])

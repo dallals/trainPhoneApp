@@ -4,7 +4,7 @@ app.factory('mainFactory', function($http, $location, $cookies, $state){
 	var trainersTrainees
 	// var userCheck = angular.fromJson(window.localStorage['savedUser'] || '')
 	$http.defaults.headers.common.Authorization = angular.fromJson(window.localStorage['authToken'] || '[]')
-	console.log($http.defaults.headers.common.Authorization)
+	// console.log($http.defaults.headers.common.Authorization)
 
 
 		factory.signInTrainer = function(trainer, callback){
@@ -35,7 +35,6 @@ app.factory('mainFactory', function($http, $location, $cookies, $state){
 		};
 
 		factory.getOneExercise = function(id, callback) {
-			console.log(id, 'factory')
 			$http.get('https://vast-depths-36442.herokuapp.com/exercises/'+id+'.json').then(function(data){
 				callback(data)
 			})
@@ -43,7 +42,6 @@ app.factory('mainFactory', function($http, $location, $cookies, $state){
 
 		factory.getOneTrainer = function(id, callback){
 			var userCheck = angular.fromJson(window.localStorage['savedUser'])
-			console.log(userCheck, 'factory')
 			if(userCheck.id == id) {
 				$http.get('https://vast-depths-36442.herokuapp.com/trainers/trainers/'+id+'.json').then(function(data){
 					callback(data)
@@ -63,6 +61,12 @@ app.factory('mainFactory', function($http, $location, $cookies, $state){
 			}
 		}
 
+		factory.removeSet = function(id, setid, callback) {
+			$http.delete('https://vast-depths-36442.herokuapp.com/sets/'+setid, ({params:{id: id}})).then(function(data) {
+				callback(data)
+			})
+		}
+
 		factory.signUpTrainee = function(trainee, callback){
 			$http.post('https://vast-depths-36442.herokuapp.com/trainees/register.json', trainee).then(function(data){
 				trainersTrainees = data
@@ -73,7 +77,7 @@ app.factory('mainFactory', function($http, $location, $cookies, $state){
 		factory.addExercise = function(exercise, id, callback){
 			var userCheck = angular.fromJson(window.localStorage['savedUser']);
 			exercise.trainer_id = userCheck.id
-			$http.post('https://vast-depths-36442.herokuapp.com/add/exercise/'+id, exercise).then(function(data){
+			$http.post('https://vast-depths-36442.herokuapp.com/'+id, exercise).then(function(data){
 				callback(data)
 			})
 		};
