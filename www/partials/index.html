@@ -1,14 +1,16 @@
 <ion-view>
   <ion-content ng-controller="indexController">
     <h1 align="center">Please Log In</h1>
-    <div class="list card">
-      <div class="item item-input">
-        <input type="text" ng-model="trainer.email" placeholder="email">
-      </div>
-      <div class="item item-input">
-        <input type="password" ng-model="trainer.password" placeholder="password">
-      </div>
-    </div>
+    <div class="list">
+	    <label class="item item-input item-floating-label">
+	    	<span class="input-label">email</span>
+	    	<input type="email" placeholder="email" ng-model="trainer.email">
+	    </label>
+	    <label class="item item-input item-floating-label">
+	    	<span class="input-label">Password</span>
+	    	<input type="password" placeholder="password" ng-model="trainer.password">
+	    </label>
+  	</div>
     <div class="padding">
       <button class="button button-block button-positive" ng-click="signInTrainer(trainer)">Log In</button>
     </div>

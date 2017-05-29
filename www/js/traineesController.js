@@ -19,7 +19,6 @@ app.controller('traineesController', function($scope, mainFactory, $cookies, $st
 
 
 	$scope.addExercise = function(exercise) {
-		console.log(exercise)
 		exercise.trainer_id = angular.fromJson(window.localStorage['savedUser']).id
 		mainFactory.addExercise(exercise, $stateParams.id, function(data){
 			$scope.exercises = data
@@ -58,15 +57,6 @@ app.controller('traineesController', function($scope, mainFactory, $cookies, $st
 	$scope.reloadTraineesExercise = function(){
 		mainFactory.getAllTraineeExercises($stateParams.id, function(data){
 			$scope.listExcersizes = data 
-			// for(var i = 0; i < data.length; i++){
-			// 	var date = data[i].created_at
-			// 	for(var x = 1; x < data.length; x++){
-			// 		var date2 = data[x].created_at
-			// 		if(date === date2){
-			// 			data.splice(x, 1)
-			// 		}
-			// 	}
-			// }
 			$scope.exercises = data
 			$scope.$broadcast('scroll.refreshComplete');
 		})
@@ -74,6 +64,13 @@ app.controller('traineesController', function($scope, mainFactory, $cookies, $st
 
 	$scope.clientButton = function(){
 		$state.go('trainers')
+	}
+
+	$scope.deleteExercise = function(exercise) {
+		console.log(exercise)
+		mainFactory.deleteExercise(exercise, function(data){
+			$scope.exercises = data
+		})
 	}
 
 })
