@@ -22,7 +22,6 @@ app.controller('traineesController', function($scope, mainFactory, $cookies, $st
 		exercise.trainer_id = angular.fromJson(window.localStorage['savedUser']).id
 		mainFactory.addExercise(exercise, $stateParams.id, function(data){
 			$scope.exercises = data
-			console.log($scope.exercises)
 			$state.go('trainee', {id: $scope.trainee.id})
 		})
 		// mainFactory.getAllTraineeExercises($stateParams.id, function(data){

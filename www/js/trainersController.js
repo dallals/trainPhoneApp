@@ -8,16 +8,19 @@ app.controller('trainersController', function($scope, $http, mainFactory, $cooki
 			$scope.trainer = data.data
 		})
 
-
-		mainFactory.getTrainersTrainees(trainer_id, function(data) {
-			$scope.trainees = data.data
-		})
-
-		$scope.reloadTrainees = function(){
+		function getTrainersTrainees() {
 			mainFactory.getTrainersTrainees(trainer_id, function(data) {
 				$scope.trainees = data.data
-				$scope.$broadcast('scroll.refreshComplete');
-			})
+			})			
+		}
+		getTrainersTrainees()
+
+		$scope.reloadTrainees = function(){
+			// mainFactory.getTrainersTrainees(trainer_id, function(data) {
+			// 	$scope.trainees = data.data
+			// 	$scope.$broadcast('scroll.refreshComplete');
+			// })
+			getTrainersTrainees($scope.$broadcast('scroll.refreshComplete'))
 		}
 
 		$scope.showTrainee = function(trainee) {

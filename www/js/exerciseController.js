@@ -2,7 +2,7 @@ app.controller('exerciseController', ["$scope", 'mainFactory','$http', '$locatio
 	function($scope, mainFactory, $http, $location, $cookies, $stateParams, $state, $timeout){
 
 
-		console.log($stateParams.id, 'exercise')
+		// console.log($stateParams.id, 'exercise')
 
 
 		mainFactory.getOneExercise($stateParams.id, function(data){
@@ -20,7 +20,7 @@ app.controller('exerciseController', ["$scope", 'mainFactory','$http', '$locatio
 			})
 			mainFactory.getOneExercise($stateParams.id, function(data){
 				$scope.exercises = data.data
-				$state.go('exercise', {id: $scope.exercises[0].exerciseid})
+				$state.go('exercise', {id: $stateParams.id})
 			})
 
 		}
