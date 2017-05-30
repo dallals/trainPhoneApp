@@ -14,7 +14,9 @@ app.controller('indexController', function($scope, $http, mainFactory, $cookies,
 				$http.defaults.headers.common.Authorization = token
 				$scope.signedIn = true
 				$ionicHistory.nextViewOptions({historyRoot: true})
+				window.localStorage['trainerLoggedIn'] = true
 				Trainer.login()
+				clearForm();
 				$state.go('trainers')
 			})
 		}
@@ -24,13 +26,25 @@ app.controller('indexController', function($scope, $http, mainFactory, $cookies,
         $http.defaults.headers.common.Authorization = '';
         window.localStorage.removeItem('savedUser');
         window.localStorage.removeItem('authToken');
+        window.localStorage.removeItem('trainerLoggedIn');
         console.log(window.localStorage)
-        $scope.signedIn = false;
+        
         clearForm();
         $state.go('index');
+        location.reload();
     }; 
 
 		var clearForm = function() {
 			$scope.trainer = null;
 		}
+
+
 })
+
+// app.controller('deviceController', function(){
+
+// 	document.addEventListener('deviceready', function() {
+// 		console.log('devise is' + angular.toJson(device));
+// 	})
+
+// })

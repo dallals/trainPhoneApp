@@ -3,14 +3,8 @@ app.controller('traineesController', function($scope, mainFactory, $cookies, $st
 
 	mainFactory.getOneTrainee($stateParams.id, function(data){
 		$scope.trainee = data.data[0]
-		// if($scope.trainee.trainer != $cookies.getObject('userCookie').id){
-		// 	$location.path('/trainers/'+$cookies.getObject('userCookie').id)
-		// }
 	});
 
-	// mainFactory.getTypes(function(data){
-	// 	$scope.types = data.data
-	// })
 
 	mainFactory.getAllTraineeExercises($stateParams.id, function(data){
 		$scope.listExcersizes = data 
@@ -24,12 +18,6 @@ app.controller('traineesController', function($scope, mainFactory, $cookies, $st
 			$scope.exercises = data
 			$state.go('trainee', {id: $scope.trainee.id})
 		})
-		// mainFactory.getAllTraineeExercises($stateParams.id, function(data){
-		// 	$scope.listExcersize = data 
-		// 	$state.go('trainee', {id: $scope.trainee.id})
-		// 	$scope.exercises = data
-		// 	// $window.location.reload();
-		// })
 	}
 
 	var clearForm = function() {

@@ -8,12 +8,7 @@ app.factory('mainFactory', function($http, $location, $cookies, $state){
 	// console.log(token)
 	var apiUrl = "https://vast-depths-36442.herokuapp.com"
 	var localApi = "http://localhost:8000/"
-
-	// var config = {
-	// 	headers: {
-	// 		'Authorization': token
-	// 	}
-	// }
+	console.log(window.localStorage)
 
 		factory.signInTrainer = function(trainer, callback){
 			$http.post(apiUrl + '/trainers/authenticate.json', trainer).then(function(data) {

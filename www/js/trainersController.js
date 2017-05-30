@@ -1,4 +1,4 @@
-app.controller('trainersController', function($scope, $http, mainFactory, $cookies, $location, $state, $stateParams, $window) {
+app.controller('trainersController', function($scope, $http, mainFactory, $cookies, $location, $state, $stateParams, $window, $cordovaDevice, $ionicPlatform) {
 
 		// console.log(angular.fromJson(window.localStorage['savedUser']))
 
@@ -50,5 +50,11 @@ app.controller('trainersController', function($scope, $http, mainFactory, $cooki
 			$window.location.reload();
 		})
 	}
+
+	// $ionicPlatform.ready(function() {
+	// 	$scope.$apply(function() {
+	// 		$scope.device = $cordovaDevice.getDevice();
+	// 	})
+	// })
 
 })

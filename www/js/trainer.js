@@ -1,12 +1,12 @@
 angular.module('trainer.loggedIn', [])
 
 	.factory('Trainer', function() {
-		var loggedIn = false;
+		var loggedIn = window.localStorage.getItem('trainerLoggedIn') || false
 
 		return {
 
 			login: function(trainer) {
-				loggedIn = true;
+				loggedIn = window.localStorage.getItem('trainerLoggedIn') || true;
 			},
 
 
