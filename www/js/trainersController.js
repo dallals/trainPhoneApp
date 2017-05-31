@@ -17,10 +17,6 @@ app.controller('trainersController', function($scope, $http, mainFactory, $cooki
 		getTrainersTrainees()
 
 		$scope.reloadTrainees = function(){
-			// mainFactory.getTrainersTrainees(trainer_id, function(data) {
-			// 	$scope.trainees = data.data
-			// 	$scope.$broadcast('scroll.refreshComplete');
-			// })
 			getTrainersTrainees($scope.$broadcast('scroll.refreshComplete'))
 		}
 
