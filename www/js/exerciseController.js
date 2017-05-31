@@ -119,9 +119,10 @@ app.controller('exerciseController', ["$scope", 'mainFactory','$http', '$locatio
 							  },
 							  "categoryField": "date",
 							  "categoryAxis": {
-							    "parseDates": false,
-							    "dashLength": 1,
-							    "minorGridEnabled": true
+									"autoGridCount": false,
+								 	"gridCount": 10,
+								  "gridPosition": "start",
+							    "labelRotation": 90
 							  },
 							  "export": {
 							    "enabled": true

@@ -19,6 +19,12 @@
 				}
 				
 			},
+			// login: function() {
+				
+			// 	loggedIn = window.localStorage.getItem('trainerLoggedIn') || true;
+				
+			// },
+
 
 			compareTrainee: function(trainerTrainee, trainee) {
 				if(trainerTrainee.id === trainee.trainer){

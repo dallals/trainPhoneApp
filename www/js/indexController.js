@@ -15,6 +15,7 @@ app.controller('indexController', function($scope, $http, mainFactory, $cookies,
 				$ionicHistory.nextViewOptions({historyRoot: true})
 				window.localStorage['trainerLoggedIn'] = true
 				Trainer.login(trainer, oneTrainer)
+				// Trainer.login()
 				clearForm();
 				$state.go('trainers')
 			})
