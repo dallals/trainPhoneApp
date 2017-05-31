@@ -4,18 +4,17 @@ app.controller('indexController', function($scope, $http, mainFactory, $cookies,
 			var email = trainer.email.toLowerCase()
 			trainer.email = email
 			mainFactory.signInTrainer(trainer, function(oneTrainer){
-				var id = oneTrainer.trainer.id
-				// $http.defaults.headers.common.Authorization = oneTrainer.token;
-				// $cookies.putObject('userCookie', oneTrainer.trainer);
+				// var id = oneTrainer.trainer.id
+				console.log(oneTrainer, 'index controller')
 				window.localStorage['savedUser'] = angular.toJson(oneTrainer.trainer)
 				window.localStorage['authToken'] = angular.toJson(oneTrainer.token)
-				// console.log(window.localStorage)
+
 				var token = angular.fromJson(window.localStorage['authToken'])
 				$http.defaults.headers.common.Authorization = token
 				$scope.signedIn = true
 				$ionicHistory.nextViewOptions({historyRoot: true})
 				window.localStorage['trainerLoggedIn'] = true
-				Trainer.login()
+				Trainer.login(trainer, oneTrainer)
 				clearForm();
 				$state.go('trainers')
 			})

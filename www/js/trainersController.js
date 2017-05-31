@@ -1,8 +1,9 @@
-app.controller('trainersController', function($scope, $http, mainFactory, $cookies, $location, $state, $stateParams, $window, $cordovaDevice, $ionicPlatform) {
+app.controller('trainersController', function($scope, $http, mainFactory, $cookies, $location, $state, $stateParams, $window, $cordovaDevice, $ionicPlatform, Trainer) {
 
 		// console.log(angular.fromJson(window.localStorage['savedUser']))
 
 		var trainer_id = angular.fromJson(window.localStorage['savedUser']).id
+		// var trainerTrainee = angular.fromJson(window.localStorage['savedUser'])
 
 		mainFactory.getOneTrainer($stateParams.id, function(data){
 			$scope.trainer = data.data
@@ -11,7 +12,7 @@ app.controller('trainersController', function($scope, $http, mainFactory, $cooki
 		function getTrainersTrainees() {
 			mainFactory.getTrainersTrainees(trainer_id, function(data) {
 				$scope.trainees = data.data
-			})			
+			})		
 		}
 		getTrainersTrainees()
 
@@ -38,6 +39,7 @@ app.controller('trainersController', function($scope, $http, mainFactory, $cooki
 		}
 
 		$scope.signUp = function() {
+			clearForm();
 			$state.go('signuptrainee')
 		}
 
@@ -45,11 +47,18 @@ app.controller('trainersController', function($scope, $http, mainFactory, $cooki
 		trainer_id = angular.fromJson(window.localStorage['savedUser']).id
 		trainee.trainer_id = trainer_id
 		mainFactory.signUpTrainee(trainee, function(data) {
+			if(data.data && data.data.success === false) {
+				clearForm();
+				$state.go('trainers')
+			}
 			$scope.trainees = data.data;
+			clearForm();
 			$state.go('trainers')
-			$window.location.reload();
 		})
 	}
+		var clearForm = function() {
+			$scope.trainee = null;
+		}
 
 	// $ionicPlatform.ready(function() {
 	// 	$scope.$apply(function() {

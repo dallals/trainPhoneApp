@@ -2,13 +2,13 @@
 app.factory('mainFactory', function($http, $location, $cookies, $state){
 	var factory = {}
 	var trainersTrainees
-	// var userCheck = angular.fromJson(window.localStorage['savedUser'] || '')
+	// var trainer = angular.fromJson(window.localStorage['savedUser'])
+	
 	$http.defaults.headers.common.Authorization = angular.fromJson(window.localStorage['authToken'] || '[]')
 	var token = $http.defaults.headers.common.Authorization
-	// console.log(token)
 	var apiUrl = "https://vast-depths-36442.herokuapp.com"
-	var localApi = "http://localhost:8000/"
-	console.log(window.localStorage)
+	var localApi = "http://localhost:8000"
+	// console.log(window.localStorage)
 
 		factory.signInTrainer = function(trainer, callback){
 			$http.post(apiUrl + '/trainers/authenticate.json', trainer).then(function(data) {
@@ -78,6 +78,10 @@ app.factory('mainFactory', function($http, $location, $cookies, $state){
 
 		factory.signUpTrainee = function(trainee, callback){
 			$http.post(apiUrl+'/trainees/register.json', trainee).then(function(data){
+				if(data.data.success === false){
+					console.log(data.data.success)
+					callback(data.data)
+				}
 				trainersTrainees = data
 				callback(data)
 			})

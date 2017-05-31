@@ -1,8 +1,14 @@
 
-app.controller('traineesController', function($scope, mainFactory, $cookies, $stateParams, $state, $window, $ionicPopup) {
+app.controller('traineesController', function($scope, mainFactory, $cookies, $stateParams, $state, $window, $ionicPopup, Trainer) {
 
 	mainFactory.getOneTrainee($stateParams.id, function(data){
-		$scope.trainee = data.data[0]
+		var trainerTrainee = angular.fromJson(window.localStorage['savedUser'])
+		if(Trainer.compareTrainee(trainerTrainee, data.data[0]) === false) {
+			console.log('is False')
+			$state.go('trainers', {id: trainerTrainee.id})
+		} else {
+			$scope.trainee = data.data[0]
+		}	
 	});
 
 

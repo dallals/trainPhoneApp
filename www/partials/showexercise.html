@@ -18,6 +18,11 @@
 				<ion-option-button class="button-assertive icon-left ion-trash-b" ng-click="removeSet(exercise.setid)">Delete</ion-option-button>
 			</ion-item>
 		</ion-list>
+		<ion-item>
+			<ionlist>
+				<div id="chartdiv" style="width:100%; height:500px;"></div>
+			</ionlist>
+		</ion-item>
 	</ion-content>
 	<div class="bar bar-footer bar-stable">
 		<button ng-controller="indexController" class="button button-assertive" ng-click="signOutUser()">Log Out</button>
