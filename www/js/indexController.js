@@ -1,4 +1,4 @@
-app.controller('indexController', function($scope, $http, mainFactory, $cookies, $location, $state, $ionicHistory, Trainer) {
+app.controller('indexController', function($scope, $http, mainFactory, $location, $state, $ionicHistory, Trainer) {
 
 		$scope.signInTrainer = function(trainer) {
 			var email = trainer.email.toLowerCase()

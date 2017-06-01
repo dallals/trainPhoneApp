@@ -1,5 +1,5 @@
 
-app.controller('traineesController', function($scope, mainFactory, $cookies, $stateParams, $state, $window, $ionicPopup, Trainer) {
+app.controller('traineesController', function($scope, mainFactory, $stateParams, $state, $window, $ionicPopup, Trainer) {
 
 	mainFactory.getOneTrainee($stateParams.id, function(data){
 		var trainerTrainee = angular.fromJson(window.localStorage['savedUser'])

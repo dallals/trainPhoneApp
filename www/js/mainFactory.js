@@ -1,5 +1,5 @@
 
-app.factory('mainFactory', function($http, $location, $cookies, $state){
+app.factory('mainFactory', function($http, $location, $state){
 	var factory = {}
 	var trainersTrainees
 	// var trainer = angular.fromJson(window.localStorage['savedUser'])

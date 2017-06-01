@@ -11,11 +11,20 @@ app.directive('amcharts', function() {
 				$http.get(Url).then(function(data) {
 					var chartData = $csv.convertStringToJson(data.data)
 					var dataChart = [];
+					$scope.setNameFromDataChart = [];
 					for(var i=0; i<chartData.length; i=i+1){
-						dataChart.push({
-							date: `${chartData[i].year}`,
-							value: `${chartData[i].value}`
-						})
+            if(i !== chartData.length - 1){
+                dataChart.push({
+                    time: `${chartData[i].year}`,
+                    value: `${chartData[i].value}`
+                })
+            }
+            if(i === chartData.length - 1){
+                $scope.setNameFromDataChart.push({
+                    name: `${chartData[i].year}`,
+                    value: `${chartData[i].value}`
+                })
+            }
 					}
 
 					var seconds = ((chartData[0].year % 60000) / 1000).toFixed(2).toString();
@@ -41,7 +50,7 @@ app.directive('amcharts', function() {
 								    "id": "g1",
 								    "balloon": {
 								      "drop": false,
-								      "adjustBorderColor": false,
+								      "adjustBorderColor": true,
 								      "color": "#ffffff",
 								      "type": "smoothedLine"
 								    },

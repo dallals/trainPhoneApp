@@ -1,5 +1,5 @@
-app.controller('exerciseController', ["$scope", 'mainFactory','$http', '$location', '$cookies', '$stateParams', '$state', '$timeout', '$csv',
-	function($scope, mainFactory, $http, $location, $cookies, $stateParams, $state, $timeout, $csv){
+app.controller('exerciseController', ["$scope", 'mainFactory','$http', '$location', '$stateParams', '$state', '$timeout', '$csv',
+	function($scope, mainFactory, $http, $location, $stateParams, $state, $timeout, $csv){
 
 
 		// console.log($stateParams.id, 'exercise')

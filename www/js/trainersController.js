@@ -1,4 +1,4 @@
-app.controller('trainersController', function($scope, $http, mainFactory, $cookies, $location, $state, $stateParams, $window, $cordovaDevice, $ionicPlatform, Trainer) {
+app.controller('trainersController', function($scope, $http, mainFactory, $location, $state, $stateParams, $window, $cordovaDevice, $ionicPlatform, Trainer) {
 
 		// console.log(angular.fromJson(window.localStorage['savedUser']))
 
