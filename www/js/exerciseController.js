@@ -42,7 +42,7 @@ app.controller('exerciseController', ["$scope", 'mainFactory','$http', '$locatio
 		})
 	}
 
-	// var convertCSV = function (){
+	// var convertCSV = function (){ 
 	// 	var Url = '/assets/SensorFusion.csv'
 	// 	var set = $http.get(Url).then(function(data) {
 	// 		console.log($csv.convertStringToJson(data.data))
