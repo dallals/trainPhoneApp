@@ -12,9 +12,27 @@ app.config(function($stateProvider, $urlRouterProvider) {
     controller: 'indexController',
     cache: false
   });
+  $stateProvider.state('trainerssignup', {
+    url: '/signup',
+    templateUrl: 'partials/signuptrainers.html',
+    controller: 'indexController',
+    cache: false
+  });
   $stateProvider.state('trainers', {
     url: '/trainers/:id',
     templateUrl: 'partials/trainers.html',
+    controller: 'trainersController',
+    cache: false
+  });
+  $stateProvider.state('addtrainersexercises', {
+    url: '/addtrainers/exercises/:id',
+    templateUrl: 'partials/addtrainersexersice.html',
+    controller: 'trainersController',
+    cache: false
+  });
+  $stateProvider.state('showtrainersexercises', {
+    url: '/showtrainers/exercises/:id',
+    templateUrl: 'partials/showtrainersexercises.html',
     controller: 'trainersController',
     cache: false
   });
@@ -33,18 +51,31 @@ app.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider.state('signuptrainee', {
     url: '/signuptrainee',
     templateUrl: 'partials/signuptrainee.html',
-    controller: 'traineesController'
+    controller: 'traineesController',
+    cache: false
   });
   $stateProvider.state('addExercise', {
     url: '/trainees/:id',
     templateUrl: 'partials/addexercise.html',
-    controller: 'traineesController'
+    controller: 'traineesController',
+    cache: false
   });
   $stateProvider.state('addSet', {
     url: '/exercise/:id',
     templateUrl: 'partials/addset.html',
-    controller: 'exerciseController'
+    controller: 'exerciseController',
+    cache: false
   });
+  // $stateProvider.state('tabTrainers', {
+  //   url: '/trainers/:id',
+  //   views: {
+  //     'tab-trainer':{
+  //       templateUrl: 'partials/trainers.html'
+  //     }
+  //   },
+  //   controller: 'trainersController',
+  //   cache: false
+  // })
 
   $urlRouterProvider.otherwise('/index');
 })
@@ -52,7 +83,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 app.run(function($rootScope, $state, $ionicPlatform, Trainer) {
   $rootScope.$on('$stateChangeStart', function(event, toState) {
 
-    if(!Trainer.isLoggedIn() && toState.name !== 'index') {
+    if(!Trainer.isLoggedIn() && toState.name !== 'index' && toState.name !== 'trainerssignup') {
       event.preventDefault();
       $state.go('index')
     }

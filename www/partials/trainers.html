@@ -1,10 +1,20 @@
-<ion-view view-title="Trainers Page">
+<ion-view view-title="{{trainer.first_name}} {{trainer.last_name}}">
 	<ion-content>
 	<ion-refresher pulling-text="Pull to refresh" on-refresh="reloadTrainees()"></ion-refresher>
 	<label class="item item-input">
 		<i class="icon ion-search placeholder-icon"></i>
 		<input type="search" placeholder="Search" ng-model='filter_name'>
 	</label>
+  <label class="item item-input item-select">
+    <div class="input-label">
+      Clients
+    </div>
+    <select name="Clients" id="Clients" ng-model="trainee" ng-change="showTraineeSelect(trainee)">
+      <option>Select Client</option>
+      <option value="{{trainee.id}}" ng-repeat="trainee in trainees | filter: filter_name">{{trainee.last_name}} {{trainee.first_name}}</option>
+      <option>
+    </select>        
+  </label>
 		<ion-list>
 			<ion-item ng-click="showTrainee(trainee)" class="item-remove-animate item-icon-right" ng-repeat="trainee in trainees | filter: filter_name">
 				<h3>{{trainee.first_name}} {{trainee.last_name}}</h3>
@@ -15,19 +25,27 @@
 			</ion-item>
 		</ion-list>
 	</ion-content>
-	<div class="bar bar-footer bar-stable">
+<!-- 	<div class="bar bar-footer bar-stable">
 		<button ng-controller="indexController" class="button button-assertive" ng-click="signOutUser()">Log Out</button>
 		<button class="button button-calm" ng-click="signUp()">Add Client</button>
+	</div> -->
+	<div class="tabs tabs-icon-top" ng-controller="indexController">
+	  <a ng-click="clientButton()" class="tab-item">
+	    <i class="icon ion-ios-people"></i>
+	    Users
+	  </a>
+	  <a ng-click="signUp()" class="tab-item">
+	    <i class="icon ion-person-add"></i>
+	    New Client
+	  </a>
+	  <a ng-click="yourExercises()" class="tab-item">
+	  	<i class="icon ion-ios-paper"></i>
+	  	Your Exercises
+	  </a>
+	  <a ng-click="signOutUser()" class="tab-item">
+	    <i class="icon ion-log-out"></i>
+	    Log Out
+	  </a>
 	</div>
 </ion-view>
 
-<!-- <script id="sign-modal.html" type="text/ng-template">
-  <ion-modal-view>
-    <ion-header-bar>
-      <h1 class="title">My Modal title</h1>
-    </ion-header-bar>
-    <ion-content>
-      Hello!
-    </ion-content>
-  </ion-modal-view>
-</script> -->

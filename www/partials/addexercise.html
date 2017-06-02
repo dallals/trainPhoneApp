@@ -1,9 +1,15 @@
 <ion-view>
   <ion-content ng-controller="traineesController">
     <div class="list">
-      <div class="item item-input">
-        <input type="text" ng-model="exercise.name" placeholder="name">
+    <label class="item item-input item-select">
+      <div class="input-label">
+        Select Exercise
       </div>
+      <select name="Clients" id="Clients" ng-model="exercise.name">
+        <option>Select Exercise</option>
+        <option ng-repeat="exercise in trainerexercises" value="{{exercise.name}}">{{exercise.name}}</option>
+      </select>        
+    </label>
       <label class="item item-input item-select">
         <div class="input-label">
           Type of Workout
@@ -17,8 +23,23 @@
           <option value="Abdomen">Abdomen</option>
         </select>        
       </label>
-    <div class="padding">
-      <button class="button button-block button-assertive" ng-click="addExercise(exercise)">Submit</button>
+      <div class="padding">
+        <button class="button button-block button-assertive" ng-click="addExercise(exercise)">Submit</button>
+      </div>
     </div>
   </ion-content>
+    <div class="tabs tabs-icon-top" ng-controller="indexController">
+      <a ng-click="clientButton()" class="tab-item">
+        <i class="icon ion-ios-people"></i>
+        Users
+      </a>
+      <a ng-click="yourExercisesFromAddExercise(trainee.trainer_id)" class="tab-item">
+        <i class="icon ion-ios-paper"></i>
+        Your Exercises
+      </a>
+      <a ng-click="signOutUser()" class="tab-item">
+        <i class="icon ion-log-out"></i>
+        Log Out
+      </a>
+    </div>
 </ion-view>

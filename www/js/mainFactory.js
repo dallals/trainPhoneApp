@@ -19,6 +19,12 @@ app.factory('mainFactory', function($http, $location, $state){
 			})
 		};
 
+		factory.signUpTrainer = function(trainer, callback){
+			$http.post(apiUrl +'/trainers/register.json', trainer).then(function(data){
+				callback(data)
+			})
+		};
+
 		factory.getTrainersTrainees = function(id, callback) {
 			$http.get(apiUrl+'/trainers/trainees.json', ({params:{trainer_id: id}})).then(function(data){
 				callback(data)
@@ -95,9 +101,23 @@ app.factory('mainFactory', function($http, $location, $state){
 			})
 		};
 
+		factory.addTrainerExercise = function(exercise, callback){
+			var userCheck = angular.fromJson(window.localStorage['savedUser']);
+			var id = exercise.trainer_id 
+			$http.post(apiUrl+'/trainer/exercise/', exercise).then(function(data){
+				callback(data)
+			})
+		};
+
+		factory.getAllYourExercises = function(id, callback) {
+			$http.get(apiUrl+'/your/exercises/'+id).then(function(data) {
+				callback(data.data);
+			})
+		};
+
 		factory.getTypes = function(callback) {
 			$http.get(apiUrl+'/gettypes').then(function(data){
-				callback(data)
+				callback(data.data)
 			})
 		};
 

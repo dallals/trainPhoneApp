@@ -6,23 +6,24 @@ app.directive('amcharts', function() {
 		template: '<div id="chartdiv" style="width:100%; height:500px;"></div>',
 		controller: function($scope, mainFactory, $http, $location, $stateParams, $state, $csv) {
 			$scope.chart = function () {
-				var Url = '/assets/SensorFusion.csv';
+				var Url = 'assets/SensorFusion.csv';
 
 				$http.get(Url).then(function(data) {
 					var chartData = $csv.convertStringToJson(data.data)
 					var dataChart = [];
 					$scope.setNameFromDataChart = [];
 					for(var i=0; i<chartData.length; i=i+1){
+
             if(i !== chartData.length - 1){
                 dataChart.push({
-                    time: `${chartData[i].year}`,
-                    value: `${chartData[i].value}`
+                    time: chartData[i].year,
+                    value: chartData[i].value
                 })
             }
             if(i === chartData.length - 1){
                 $scope.setNameFromDataChart.push({
-                    name: `${chartData[i].year}`,
-                    value: `${chartData[i].value}`
+                    name: chartData[i].year,
+                    value: chartData[i].value
                 })
             }
 					}

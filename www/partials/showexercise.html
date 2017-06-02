@@ -1,6 +1,6 @@
 <ion-view view-title="Workouts">
 	<ion-content>
-	<button class="button button-balanced button-block" ng-click="clientButton()" style="margin-top: 0px;">All Clients</button>
+<!-- 	<button class="button button-balanced button-block" ng-click="clientButton()" style="margin-top: 0px;">All Clients</button> -->
 	<ion-refresher pulling-text="Pull to refresh" on-refresh="refreshSet()"></ion-refresher>
 	<h2 align="center">{{exercises[0].typename}}</h2>
 	<h2 align="center">{{exercises[0].traineefirstname}} {{exercises[0].traineelastname}}</h2>
@@ -19,13 +19,31 @@
 			</ion-item>
 		</ion-list>
 		<ion-item>
+		<div ng-controller="fileTransferController">
+			<button ng-click="upload(exercise)">Sendfile</button>
+		</div>
 			<ionlist>
 				<amcharts></amcharts>
 			</ionlist>
 		</ion-item>
 	</ion-content>
-	<div class="bar bar-footer bar-stable">
-		<button ng-controller="indexController" class="button button-assertive" ng-click="signOutUser()">Log Out</button>
-		<button class="button button-positive" ng-click="addSet(exercises[0].exerciseid)">Add Set</button>
+	<div class="tabs tabs-icon-top" ng-controller="indexController">
+	  <a ng-click="clientButton()" class="tab-item">
+	    <i class="icon ion-ios-people"></i>
+	    Users
+	  </a>
+	  <a ng-click="addSet(exercises[0].exerciseid)" class="tab-item">
+	  	<i class="icon ion-ios-refresh-outline"></i>
+	  	Add Set
+	  </a>
+	  <a ng-click="yourExercises()" class="tab-item">
+	  	<i class="icon ion-ios-paper"></i>
+	  	Your Exercises
+	  </a>
+	  <a ng-click="signOutUser()" class="tab-item">
+	    <i class="icon ion-log-out"></i>
+	    Log Out
+	  </a>
 	</div>
 </ion-view>
+

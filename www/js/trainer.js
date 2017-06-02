@@ -1,4 +1,4 @@
-// angular.module('trainer.loggedIn', [])
+
 
 	app.factory('Trainer', function($http) {
 		var loggedIn = window.localStorage.getItem('trainerLoggedIn') || false

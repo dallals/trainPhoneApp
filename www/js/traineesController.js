@@ -1,20 +1,30 @@
 
 app.controller('traineesController', function($scope, mainFactory, $stateParams, $state, $window, $ionicPopup, Trainer) {
 
+
+	var trainer = angular.fromJson(window.localStorage['savedUser'])
+
 	mainFactory.getOneTrainee($stateParams.id, function(data){
-		var trainerTrainee = angular.fromJson(window.localStorage['savedUser'])
-		if(Trainer.compareTrainee(trainerTrainee, data.data[0]) === false) {
-			console.log('is False')
-			$state.go('trainers', {id: trainerTrainee.id})
-		} else {
+		// var trainerTrainee = angular.fromJson(window.localStorage['savedUser'])
+		// if(Trainer.compareTrainee(trainerTrainee, data.data[0]) === false) {
+		// 	console.log('is False')
+		// 	$state.go('trainers', {id: trainerTrainee.id})
+		// } else {
 			$scope.trainee = data.data[0]
-		}	
+		// }	
 	});
+
+		mainFactory.getAllYourExercises(trainer.id, function(data){
+			console.log(data)
+			$scope.trainerexercises = data
+		})
 
 
 	mainFactory.getAllTraineeExercises($stateParams.id, function(data){
 		$scope.listExcersizes = data 
 		$scope.exercises = data
+		$scope.count = data.length
+		console.log($scope.count)
 	})
 
 

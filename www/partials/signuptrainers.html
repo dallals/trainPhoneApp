@@ -1,0 +1,26 @@
+<ion-view>
+  <ion-content ng-controller="indexController">
+    <h3 style="color: #3e3e3e" align="center">Sign up to Repmonk</h3>
+    <div class="list">
+      <label class="item item-input item-floating-label" style='margin: 5px 20px'>
+        <span class="input-label">First Name</span>
+        <input type="text" placeholder="First Name" ng-model="trainer.first_name">
+      </label>
+      <label class="item item-input item-floating-label" style='margin: 5px 20px'>
+        <span class="input-label">Last Name</span>
+        <input type="text" placeholder="Last Name" ng-model="trainer.last_name">
+      </label>
+	    <label class="item item-input item-floating-label" style='margin: 5px 20px'>
+	    	<span class="input-label">Email</span>
+	    	<input type="email" placeholder="Email" ng-model="trainer.email">
+	    </label>
+	    <label class="item item-input item-floating-label" style='margin: 5px 20px; border: 0px 0px 0px 1px'>
+	    	<span class="input-label">Password</span>
+	    	<input type="password" placeholder="Password" ng-model="trainer.password">
+	    </label>
+  	</div>
+    <div style='margin: 0px 20px'>
+      <button class="button button-block button-positive" ng-click="signUpTrainer(trainer)">Sign Up</button>
+    </div>
+  </ion-content>
+</ion-view>

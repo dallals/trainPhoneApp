@@ -1,4 +1,6 @@
-app.controller('indexController', function($scope, $http, mainFactory, $location, $state, $ionicHistory, Trainer) {
+app.controller('indexController', function($scope, $http, mainFactory, $location, $state, $ionicHistory, Trainer, $stateParams) {
+
+	$scope.checkTrainer = window.localStorage.getItem('trainerLoggedIn') || undefined
 
 		$scope.signInTrainer = function(trainer) {
 			var email = trainer.email.toLowerCase()
@@ -38,7 +40,44 @@ app.controller('indexController', function($scope, $http, mainFactory, $location
 			$scope.trainer = null;
 		}
 
+		$scope.signup = function(){
+			console.log('getting signup')
+			$state.go('trainerssignup')
+		}
 
+		$scope.signUpTrainer = function (trainer) {
+			var email = trainer.email.toLowerCase();
+			trainer.email = email
+			mainFactory.signUpTrainer(trainer, function(data){
+				$scope.trainer = data.data
+			})
+			$scope.signInTrainer($scope.trainer)
+		}
+
+		$scope.clientButton = function(){
+			$state.go('trainers')
+		};
+
+		$scope.addWorkOut = function(id) {
+			$state.go('addExercise', {id: id})
+		};
+
+		$scope.addSet = function() {
+			$state.go('addSet', {id: $stateParams.id})
+		}
+
+		$scope.signUp = function() {
+			$state.go('signuptrainee')
+		}
+		$scope.yourExercises = function() {
+			$state.go('showtrainersexercises', {id: $stateParams.id})
+		}
+		$scope.yourExercisesFromAddExercise = function(id) {
+			$state.go('showtrainersexercises', {id: id})
+		}
+		$scope.addTrainerExercises = function() {
+			$state.go('addtrainersexercises', {id: $stateParams.id})
+		}
 })
 
 // app.controller('deviceController', function(){
