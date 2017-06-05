@@ -1,4 +1,9 @@
-<ion-view view-title="{{trainer.first_name}} {{trainer.last_name}}">
+<ion-view view-title="">
+	<ion-nav-buttons side="right">
+	  <a ng-controller="indexController" ng-click="signUp()" class="tab-item">
+	    <i class="icon ion-person-add"></i>
+	  </a>
+	</ion-nav-buttons>
 	<ion-content>
 	<ion-refresher pulling-text="Pull to refresh" on-refresh="reloadTrainees()"></ion-refresher>
 	<label class="item item-input">
@@ -30,13 +35,9 @@
 		<button class="button button-calm" ng-click="signUp()">Add Client</button>
 	</div> -->
 	<div class="tabs tabs-icon-top" ng-controller="indexController">
-	  <a ng-click="clientButton()" class="tab-item">
-	    <i class="icon ion-ios-people"></i>
-	    Users
-	  </a>
-	  <a ng-click="signUp()" class="tab-item">
-	    <i class="icon ion-person-add"></i>
-	    New Client
+	  <a ng-click="" class="tab-item">
+	    <i class="icon ion-edit"></i>
+	    Exercise Logger
 	  </a>
 	  <a ng-click="yourExercises()" class="tab-item">
 	  	<i class="icon ion-ios-paper"></i>

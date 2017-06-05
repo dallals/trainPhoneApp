@@ -7,7 +7,6 @@ app.controller('indexController', function($scope, $http, mainFactory, $location
 			trainer.email = email
 			mainFactory.signInTrainer(trainer, function(oneTrainer){
 				// var id = oneTrainer.trainer.id
-				console.log(oneTrainer, 'index controller')
 				window.localStorage['savedUser'] = angular.toJson(oneTrainer.trainer)
 				window.localStorage['authToken'] = angular.toJson(oneTrainer.token)
 
@@ -64,20 +63,23 @@ app.controller('indexController', function($scope, $http, mainFactory, $location
 
 		$scope.addSet = function() {
 			$state.go('addSet', {id: $stateParams.id})
-		}
+		};
 
 		$scope.signUp = function() {
 			$state.go('signuptrainee')
-		}
+		};
+
 		$scope.yourExercises = function() {
 			$state.go('showtrainersexercises', {id: $stateParams.id})
-		}
+		};
+
 		$scope.yourExercisesFromAddExercise = function(id) {
 			$state.go('showtrainersexercises', {id: id})
-		}
+		};
+
 		$scope.addTrainerExercises = function() {
 			$state.go('addtrainersexercises', {id: $stateParams.id})
-		}
+		};
 })
 
 // app.controller('deviceController', function(){

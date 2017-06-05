@@ -1,16 +1,25 @@
 <ion-view>
+  <ion-nav-buttons side="right">
+    <a ng-controller="indexController" ng-click="signUp()" class="tab-item">
+      <i class="icon ion-person-add"></i>
+    </a>
+  </ion-nav-buttons>
   <ion-content ng-controller="traineesController">
     <div class="list">
-    <label class="item item-input item-select">
-      <div class="input-label">
-        Select Exercise
-      </div>
-      <select name="Clients" id="Clients" ng-model="exercise.name">
-        <option>Select Exercise</option>
-        <option ng-repeat="exercise in trainerexercises" value="{{exercise.name}}">{{exercise.name}}</option>
-      </select>        
-    </label>
       <label class="item item-input item-select">
+        <div class="input-label">
+          Select Exercise
+        </div>
+          <select name="Clients" id="Clients" ng-model="exercise.name">
+            <option>Select Exercise</option>
+            <option ng-repeat="exercise in trainerexercises" value="{{exercise.name}}">{{exercise.name}}</option>
+          </select>          
+      </label>  
+<!--       <div class="item item-input">
+        <input type="text" ng-model="exercise.type" placeholder="Exercise Type">
+      </div>  -->
+
+<!--       <label class="item item-input item-select">
         <div class="input-label">
           Type of Workout
         </div>
@@ -22,10 +31,22 @@
           <option value="Arms">Arms</option>
           <option value="Abdomen">Abdomen</option>
         </select>        
+      </label> -->
+      <label class="item item-input item-select">
+        <div class="input-label">
+          Type of Workout
+        </div>
+        <select name="type" id="type" ng-model="exercise.type">
+          <option value="">Select Type</option>
+          <option ng-repeat="exercise in trainerexercises" value="{{exercise.type}}">{{exercise.type}}</option>
+        </select>        
       </label>
+<!--       <div class="item item-input">
+        <input type="hidden" value="{{exercise.type}}" ng-model="exercise.type" placeholder="{{exercise.type}}">
+      </div> -->
       <div class="padding">
         <button class="button button-block button-assertive" ng-click="addExercise(exercise)">Submit</button>
-      </div>
+      </div> 
     </div>
   </ion-content>
     <div class="tabs tabs-icon-top" ng-controller="indexController">

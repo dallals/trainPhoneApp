@@ -29,7 +29,6 @@
 			compareTrainee: function(trainerTrainee, trainee) {
 				if(trainerTrainee.id === trainee.trainer_id){
 					isTrainersTrainee = true
-					console.log(isTrainersTrainee)
 					return isTrainersTrainee;
 				} else {
 					return isTrainersTrainee

@@ -11,7 +11,6 @@ app.controller('trainersController', function($scope, $http, mainFactory, $locat
 		});
 
 		mainFactory.getAllYourExercises($stateParams.id, function(data){
-			console.log(data)
 			$scope.exercises = data
 		});
 
@@ -20,6 +19,12 @@ app.controller('trainersController', function($scope, $http, mainFactory, $locat
 				$scope.exercises = data
 				$scope.$broadcast('scroll.refreshComplete')
 			})
+		};
+
+		$scope.deleteTrainerExercise = function(id) {
+			mainFactory.deleteTrainerExercise(id, function(data) {
+			})
+			$scope.reloadTrainersExercise()
 		};
 
 		function getTrainersTrainees() {
@@ -34,7 +39,6 @@ app.controller('trainersController', function($scope, $http, mainFactory, $locat
 		};
 
 		$scope.showTraineeSelect = function(trainee) {
-			console.log(typeof trainee)
 			$state.go('trainee', {id: trainee})
 		}
 
@@ -59,7 +63,6 @@ app.controller('trainersController', function($scope, $http, mainFactory, $locat
 		};
 
 		$scope.clientButton = function(){
-			console.log('getting here')
 			$state.go('trainers')
 		};
 
@@ -79,7 +82,6 @@ app.controller('trainersController', function($scope, $http, mainFactory, $locat
 
 	$scope.addTrainerExercise = function(exercise) {
 		exercise.trainer_id = trainer_id
-		console.log(exercise)
 		mainFactory.addTrainerExercise(exercise, function(data) {
 			$scope.exercise = data
 		})
@@ -89,6 +91,10 @@ app.controller('trainersController', function($scope, $http, mainFactory, $locat
 	var clearForm = function() {
 		$scope.trainee = null;
 	};
+
+	
+
+
 
 	// $ionicPlatform.ready(function() {
 	// 	$scope.$apply(function() {

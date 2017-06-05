@@ -15,7 +15,7 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 	});
 
 		mainFactory.getAllYourExercises(trainer.id, function(data){
-			console.log(data)
+			// console.log(data)
 			$scope.trainerexercises = data
 		})
 
@@ -24,7 +24,6 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 		$scope.listExcersizes = data 
 		$scope.exercises = data
 		$scope.count = data.length
-		console.log($scope.count)
 	})
 
 
@@ -70,7 +69,6 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 	}
 
 	$scope.deleteExercise = function(exercise) {
-		console.log(exercise)
 		mainFactory.deleteExercise(exercise, function(data){
 			$scope.exercises = data
 		})

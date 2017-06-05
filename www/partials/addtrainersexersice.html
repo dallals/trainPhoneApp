@@ -1,8 +1,16 @@
 <ion-view>
+  <ion-nav-buttons side="right">
+    <a ng-controller="indexController" ng-click="signUp()" class="tab-item">
+      <i class="icon ion-person-add"></i>
+    </a>
+  </ion-nav-buttons>
   <ion-content ng-controller="trainersController">
     <div class="list">
       <div class="item item-input">
         <input type="text" ng-model="exercise.name" placeholder="name">
+      </div>
+      <div class="item item-input">
+        <input type="text" ng-model="exercise.type" placeholder="Exercise Type">
       </div>
       <div class="padding">
         <button class="button button-block button-assertive" ng-click="addTrainerExercise(exercise)">Submit</button>

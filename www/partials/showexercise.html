@@ -1,4 +1,9 @@
 <ion-view view-title="Workouts">
+	<ion-nav-buttons side="right">
+	  <a ng-controller="indexController" ng-click="signUp()" class="tab-item">
+	    <i class="icon ion-person-add"></i>
+	  </a>
+	</ion-nav-buttons>
 	<ion-content>
 <!-- 	<button class="button button-balanced button-block" ng-click="clientButton()" style="margin-top: 0px;">All Clients</button> -->
 	<ion-refresher pulling-text="Pull to refresh" on-refresh="refreshSet()"></ion-refresher>
@@ -8,7 +13,7 @@
 		<ion-list class="" ng-repeat="exercise in exercises">
 			<ion-item class="item-remove-animate item-icon-right">
 				<!-- <div class="item"> -->
-					<h1>{{exercise.setname}} | {{exercise.typename}}</h1>
+					<h1>{{exercise.setname}} | {{exercise.typename}} | {{exercise.exercisename}}</h1>
 				<!-- </div> -->
 				<!-- <div class="item item-body"> -->
 					<h3>Reps: {{exercise.reps}}</h3>
@@ -28,6 +33,10 @@
 		</ion-item>
 	</ion-content>
 	<div class="tabs tabs-icon-top" ng-controller="indexController">
+	  <a ng-click="" class="tab-item">
+	    <i class="icon ion-edit"></i>
+	    Exercise Logger
+	  </a>
 	  <a ng-click="clientButton()" class="tab-item">
 	    <i class="icon ion-ios-people"></i>
 	    Users
@@ -36,7 +45,7 @@
 	  	<i class="icon ion-ios-refresh-outline"></i>
 	  	Add Set
 	  </a>
-	  <a ng-click="yourExercises()" class="tab-item">
+	  <a ng-click="yourExercisesFromAddExercise(exercises[0].trainerid)" class="tab-item">
 	  	<i class="icon ion-ios-paper"></i>
 	  	Your Exercises
 	  </a>

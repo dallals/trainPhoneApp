@@ -1,26 +1,31 @@
 <ion-view view-title="">
+	<ion-nav-buttons side="right">
+	  <a ng-controller="indexController" ng-click="signUp()" class="tab-item">
+	    <i class="icon ion-person-add"></i>
+	  </a>
+	</ion-nav-buttons>
 	<ion-content>
 <!-- 	<button class="button button-balanced button-block" ng-click="clientButton()" style="margin-top: 0px;">All Clients</button> -->
 	<ion-refresher pulling-text="Pull to refresh" on-refresh="reloadTrainersExercise()"></ion-refresher>
 		<ion-list>
 			<ion-item ng-click="showExercise(exercise.exerciseid)" class="item-icon-right item-remove-animate" ng-repeat="exercise in exercises">
-				<h1>{{exercise.name}}</h1>
+				<h1>{{exercise.name}} | {{exercise.type}}</h1>
 				<h3>{{exercise.created_at | date: 'MMM dd, yyyy h:mm a'}}</h3>
-				<i class="icon ion-arrow-right-b"></i>
-				<ion-option-button class="button-assertive icon-left ion-trash-b" ng-click="">Delete</ion-option-button>
+				<!-- <i class="icon ion-arrow-right-b"></i> -->
+				<ion-option-button class="button-assertive icon-left ion-trash-b" ng-click="deleteTrainerExercise(exercise.id)">Delete</ion-option-button>
 			</ion-item>
 		</ion-list>
 	</ion-content>
 
 	<div class="tabs tabs-icon-top" ng-controller="indexController">
+	  <a ng-click="" class="tab-item">
+	    <i class="icon ion-edit"></i>
+	    Exercise Logger
+	  </a>
 	  <a ng-click="clientButton()" class="tab-item">
 	    <i class="icon ion-ios-people"></i>
 	    Users
 	  </a>
-<!-- 	  <a ng-click="addWorkOut(trainee.id)" class="tab-item">
-	  	<i class="icon ion-ios-body"></i>
-	  	Add Work Out
-	  </a> -->
 	  <a ng-click="addTrainerExercises()" class="tab-item">
 	  	<i class="icon ion-plus-round"></i>
 	  	Add Exercise
