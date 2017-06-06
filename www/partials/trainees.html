@@ -7,22 +7,40 @@
 	<ion-content>
 <!-- 	<button class="button button-balanced button-block" ng-click="clientButton()" style="margin-top: 0px;">All Clients</button> -->
 	<ion-refresher pulling-text="Pull to refresh" on-refresh="reloadTraineesExercise()"></ion-refresher>
-	<h3 style="text-align: center;">{{trainee.first_name}} {{trainee.last_name}}</h3>
+
+	<h3 style="margin-left: 30px;">{{trainee.first_name}} {{trainee.last_name}}</h3>
 	<ion-list>
-		<ion-item>
-			<h2 style="text-align: center">Total Workouts: {{count}}</h2>
-			<h2 style="text-align: center">Last Workout Date: {{exercises[0].created_at | date: 'MMM dd, yyyy h:mm a'}}</h2>
+		<ion-item style="border: 0px;">
+			<h2 style="margin-left: 15px">Total Workouts: {{count}}</h2>
+			<h2 style="margin-left: 15px">Last Workout Date: {{exercises[0].created_at | date: 'MMM dd, yyyy h:mm a'}}</h2>
 		</ion-item>
-	</ion-list>
-		<ion-list>
-			<ion-item ng-click="showExercise(exercise.exerciseid)" class="item-icon-right item-remove-animate" ng-repeat="exercise in exercises">
-				<h1>{{exercise.exercisetypename}}</h2>
-				<h2> Exercise Name: {{exercise.exercisename}}</h2>
-				<h3>{{exercise.created_at | date: 'MMM dd, yyyy h:mm a'}}</h3>
-				<i class="icon ion-arrow-right-b"></i>
-				<ion-option-button class="button-assertive icon-left ion-trash-b" ng-click="deleteExercise(exercise)">Delete</ion-option-button>
-			</ion-item>
+	<div style="margin: 15px;">
+		<button ng-controller="indexController" class="button button-block button-balanced" ng-click="addWorkOut(trainee.id)"><i class="ion-plus"></i> Add Workout</button>		
+	</div>
+	<br>
+	<div class="card">
+		<div style="">
+			<h4 style="text-align: center; color: #777">Previous Workouts</h4>
+		</div>
 		</ion-list>
+			<ion-list>
+				<ion-item ng-click="showExercise(exercise.exerciseid)" class="item-icon-right item-remove-animate" ng-repeat="exercise in exercises">
+					<div style="display: inline-block; width: 35%; border: 1px; border-color: #777; border-radius: 3px; margin: auto; height: 30px; text-align: center; vertical-align: top;" class="card-type ">
+						<span style = "font-size: 16px; ">{{exercise.exercisetypename}}</span>
+					</div>
+					<div style="display: inline-block; width: 50%; padding-left: 10px">
+						<span style="font-size: 18px; padding-bottom: 20px"> {{exercise.exercisename}}</span>
+						<h3 style="color:#777">{{exercise.created_at | date: 'MMM dd, yyyy h:mm a'}}</h3>
+					</div>
+					<div style="display: inline-block; width: 10%;">
+						<i style="margin-right: 15px; font-size: 16px;" class="icon ion-arrow-right-b"></i>
+					</div>
+					<ion-option-button class="button-assertive icon-left ion-trash-b" ng-click="deleteExercise(exercise)">Delete</ion-option-button>
+				</ion-item>
+			</ion-list>
+	</div>
+	
+<!-- 		<button class="button button-balanced button-full" ng-click="addWorkOut(trainee.id)">Add Workout</button> -->
 	</ion-content>
 	<div class="tabs tabs-icon-top" ng-controller="indexController">
 	  <a ng-click="" class="tab-item">
@@ -31,11 +49,8 @@
 	  </a>
 	  <a ng-click="clientButton()" class="tab-item">
 	    <i class="icon ion-ios-people"></i>
+	    <!-- <i ng-disabled="iconActive == false" class="icon ion-ios-people-outline"></i> -->
 	    Users
-	  </a>
-	  <a ng-click="addWorkOut(trainee.id)" class="tab-item">
-	  	<i class="icon ion-ios-body"></i>
-	  	Add Work Out
 	  </a>
 	  <a ng-click="yourExercisesFromAddExercise(trainee.trainer_id)" class="tab-item">
 	  	<i class="icon ion-ios-paper"></i>

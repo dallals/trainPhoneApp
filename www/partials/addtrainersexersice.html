@@ -5,19 +5,25 @@
     </a>
   </ion-nav-buttons>
   <ion-content ng-controller="trainersController">
-    <div class="list">
-      <div class="item item-input">
-        <input type="text" ng-model="exercise.name" placeholder="name">
-      </div>
-      <div class="item item-input">
-        <input type="text" ng-model="exercise.type" placeholder="Exercise Type">
-      </div>
-      <div class="padding">
-        <button class="button button-block button-assertive" ng-click="addTrainerExercise(exercise)">Submit</button>
-      </div>
-    </div>  
+    <div class="card" style="margin: 40px;">
+      <div class="list list-inset">
+        <div class="item item-input">
+          <input type="text" ng-model="exercise.type" placeholder="Exercise Type">
+        </div>
+        <div class="item item-input">
+          <input type="text" ng-model="exercise.name" placeholder="Exercise Name">
+        </div>
+        <div style="margin: 15px;">
+          <button class="button button-block button-balanced" ng-click="addTrainerExercise(exercise)">Submit</button>
+        </div>
+      </div> 
+    </div> 
   </ion-content>
   <div class="tabs tabs-icon-top" ng-controller="indexController">
+    <a ng-click="" class="tab-item">
+      <i class="icon ion-edit"></i>
+      Exercise Logger
+    </a>
     <a ng-click="clientButton()" class="tab-item">
       <i class="icon ion-ios-people"></i>
       Users

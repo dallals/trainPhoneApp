@@ -69,7 +69,7 @@ app.factory('mainFactory', function($http, $location, $state){
 	factory.removeTrainee = function(trainee, callback) {
 		var userCheck = angular.fromJson(window.localStorage['savedUser']);
 		var trainer_id = userCheck.id
-		if(trainee.trainer === trainer_id){
+		if(trainee.trainer_id === trainer_id){
 			$http.delete(apiUrl+'/trainee/'+trainee.id, ({params:{trainer_id: trainer_id}})).then(function(data){
 				callback(data)
 			})

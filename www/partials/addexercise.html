@@ -45,11 +45,15 @@
         <input type="hidden" value="{{exercise.type}}" ng-model="exercise.type" placeholder="{{exercise.type}}">
       </div> -->
       <div class="padding">
-        <button class="button button-block button-assertive" ng-click="addExercise(exercise)">Submit</button>
+        <button class="button button-full button-assertive" ng-click="addExercise(exercise)">Submit</button>
       </div> 
     </div>
   </ion-content>
     <div class="tabs tabs-icon-top" ng-controller="indexController">
+      <a ng-click="" class="tab-item">
+        <i class="icon ion-edit"></i>
+        Exercise Logger
+      </a>
       <a ng-click="clientButton()" class="tab-item">
         <i class="icon ion-ios-people"></i>
         Users

@@ -1,8 +1,30 @@
 /* Empty. Add your own CSS if you like */
 	a i {
-		color: darkred;
+		color: #1b5bc4;
 	}
 
 /*	.tabs {
 		margin-top: 10px;
 	}*/
+
+	.tab-item.tab-item-active, .tab-item.active, .tab-item.activated {
+    opacity: 1;
+    background: #1b5bc4;
+}
+
+p, h1, h2, h3, h4, span {
+	color: #3e3e3e;
+}
+
+.card-type {
+  padding-top: 1px;
+  padding-bottom: 1px;
+  background: #ffffe5;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3); }
+  .card .item {
+    border-left: 0;
+    border-right: 0; }
+  .card .item:first-child {
+    border-top: 0; }
+  .card .item:last-child {
+    border-bottom: 0; }

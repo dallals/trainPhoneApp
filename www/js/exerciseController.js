@@ -7,6 +7,7 @@ app.controller('exerciseController', ["$scope", 'mainFactory','$http', '$locatio
 
 	mainFactory.getOneExercise($stateParams.id, function(data){
 		// window.ID37632 = $stateParams.id
+		console.log(data)
 		$scope.exercises = data.data;
 	})
 
@@ -40,6 +41,10 @@ app.controller('exerciseController', ["$scope", 'mainFactory','$http', '$locatio
 		mainFactory.removeSet($stateParams.id, setid, function(data) {
 			$scope.exercises = data.data;
 		})
+	}
+
+	$scope.graph = function(setid) {
+		$state.go('graph', {id: setid})
 	}
 
 	// var convertCSV = function (){ 

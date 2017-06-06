@@ -44,6 +44,8 @@ app.controller('indexController', function($scope, $http, mainFactory, $location
 			$state.go('trainerssignup')
 		}
 
+		$scope.iconActive = false;
+
 		$scope.signUpTrainer = function (trainer) {
 			var email = trainer.email.toLowerCase();
 			trainer.email = email
@@ -54,6 +56,7 @@ app.controller('indexController', function($scope, $http, mainFactory, $location
 		}
 
 		$scope.clientButton = function(){
+			$scope.iconActive = true;
 			$state.go('trainers')
 		};
 
