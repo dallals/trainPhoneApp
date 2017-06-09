@@ -60,7 +60,21 @@ app.controller('indexController', function($scope, $http, mainFactory, $location
 			$state.go('trainers')
 		};
 
+		$scope.loggerButton = function(){
+			$scope.iconActive = true;
+			$state.go('logger', {id: $stateParams.id})
+		};
+
+		$scope.loggerButtonWithId = function(id){
+			$scope.iconActive = true;
+			$state.go('logger', {id: id})
+		};
+
 		$scope.addWorkOut = function(id) {
+			$state.go('addExercise', {id: id})
+		};
+
+		$scope.addWorkOutLogger = function(id) {
 			$state.go('addExercise', {id: id})
 		};
 
@@ -83,6 +97,13 @@ app.controller('indexController', function($scope, $http, mainFactory, $location
 		$scope.addTrainerExercises = function() {
 			$state.go('addtrainersexercises', {id: $stateParams.id})
 		};
+
+		// $scope.getTraineeId = function(trainee) {
+		// 	console.log(trainee)
+		// 	// var traineeId = id
+		// 	// return traineeId
+		// }
+
 })
 
 // app.controller('deviceController', function(){

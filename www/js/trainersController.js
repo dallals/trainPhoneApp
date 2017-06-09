@@ -1,5 +1,8 @@
 app.controller('trainersController', function($scope, $http, mainFactory, $location, $state, $stateParams, $window, $cordovaDevice, $ionicPlatform, Trainer) {
 
+
+		var selectedTrianee = false
+		$scope.selectedTraineeName = "Select A Client"
 		// console.log(angular.fromJson(window.localStorage['savedUser']))
 		$scope.checkTrainer = window.localStorage.getItem('trainerLoggedIn') || undefined
 
@@ -41,6 +44,8 @@ app.controller('trainersController', function($scope, $http, mainFactory, $locat
 		getTrainersTrainees()
 
 		$scope.reloadTrainees = function(){
+			selectedTrianee = false
+			$scope.selectedTraineeName = "Select A Client"
 			getTrainersTrainees($scope.$broadcast('scroll.refreshComplete'))
 		};
 
@@ -99,9 +104,35 @@ app.controller('trainersController', function($scope, $http, mainFactory, $locat
 		$scope.trainee = null;
 	};
 
+	$scope.filterTrainee = function(trainee) {
+		if(trainee == 'Select Client'){
+			selectedTrianee = false
+			$scope.selectedTraineeName = "Select A Client"
+		} else {
+			var selectTrainee = angular.fromJson(trainee)
+			if(selectTrainee.id !== undefined) {
+				selectedTrianee = true
+				$scope.selectTraineeId = selectTrainee.id
+				$scope.selectedTraineeName = selectTrainee.first_name + ' ' + selectTrainee.last_name
+			}
+		}
+	};
 	
+	$scope.buttonDisableLogger = function () {
+		if(selectedTrianee !== true) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
+	// $scope.disableButtonLogger = function () {
+	// 	selectTrainee = false
+	// }
 
+	$scope.addWorkOutLogger = function(id) {
+		$state.go('addExercise', {id: id})
+	};
 
 	// $ionicPlatform.ready(function() {
 	// 	$scope.$apply(function() {

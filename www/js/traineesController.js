@@ -3,7 +3,7 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 
 
 	var trainer = angular.fromJson(window.localStorage['savedUser'])
-
+	$scope.trainerId = angular.fromJson(window.localStorage['savedUser']).id
 	mainFactory.getOneTrainee($stateParams.id, function(data){
 		// var trainerTrainee = angular.fromJson(window.localStorage['savedUser'])
 		// if(Trainer.compareTrainee(trainerTrainee, data.data[0]) === false) {

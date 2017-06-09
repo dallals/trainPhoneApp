@@ -1,33 +1,35 @@
-<ion-view view-title="">
+<ion-view view-title="Name Here">
 	<ion-nav-buttons side="right">
 	  <a ng-controller="indexController" ng-click="signUp()" class="tab-item">
 	    <i class="icon ion-person-add"></i>
 	  </a>
 	</ion-nav-buttons>
-	<ion-content>
-	<ion-refresher pulling-text="Pull to refresh" on-refresh="reloadTrainees()"></ion-refresher>
-  <label style="border: 0px;" class="item item-input item-select">
-    <div class="input-label" style="margin: 0px 15px; width: 100%">
-      <span style="font-size: 22px; font-weight: bold; overflow: visible">Select a client</span>
-    </div>
-    <select name="Clients" id="Clients" ng-model="trainee" ng-change="showTraineeSelect(trainee)">
-      <option>Select Client</option>
-      <option value="{{trainee.id}}" ng-repeat="trainee in trainees | filter: filter_name">{{trainee.last_name}} {{trainee.first_name}}</option>
-      <option>
-    </select>        
-  </label>
-
+	<div class="bar-bar-subheader" style="margin-top: 65px;">
+	  <label style="border: 0px;" class="item item-input item-select">
+	    <div class="input-label" style="margin: 0px 15px; width: 100%">
+	      <span style="font-size: 22px; font-weight: bold;">{{selectedTraineeName}}</span>
+	    </div>
+	    <select name="Clients" id="Clients" ng-model="trainee" ng-change="filterTrainee(trainee)">
+	      <option>Select Client</option>
+	      <option value="{{trainee}}" ng-repeat="trainee in trainees | filter: filter_name">{{trainee.first_name}} {{trainee.last_name}}</option>
+	    </select>        
+	  </label>
 		<label class="card item-input">
 			<i style="margin-left: 15px;" class="icon ion-search placeholder-icon"></i>
 			<input style="margin-left: 15px;" type="search" placeholder="Search" ng-model='filter_name'>
 		</label>
-		<ion-list>
-			<ion-item ng-click="showTrainee(trainee)" class="item-remove-animate item-icon-right item-thumbnail-left" ng-repeat="trainee in trainees | filter: filter_name">
+		<div style="margin: 15px;">
+			<button class="button button-block button-balanced" ng-click="addWorkOutLogger(selectTraineeId)" ng-disabled="buttonDisableLogger()"><i class="ion-plus"></i> Add Workout</button>		
+		</div>
+	</div>
+	<ion-content style="margin-bottom:50px; margin-top: 175px;" class="has-subheader">
+		<ion-refresher pulling-text="Pull to refresh" on-refresh="reloadTrainees()"></ion-refresher>
+		<ion-list class="scroll" >
+			<ion-item ng-click="filterTrainee(trainee)" class="item-remove-animate item-icon-right item-thumbnail-left" ng-repeat="trainee in trainees | filter: filter_name">
 				<img gravatar-src="trainee.email" gravatar-size="50" style="border-radius: 50%; height: 60px; width: 60px;">
 				<h3 style="margin-left: 15px;">{{trainee.first_name}} {{trainee.last_name}}</h3>
 				<!-- <h4>{{trainee.email}}</h4> -->
 				<p style="margin-left: 15px;">{{trainee.created_at | date: 'MMM dd, yyyy h:mm a'}}</p>
-				<i style="margin-right: 15px; font-size: 16px;" class="icon ion-arrow-right-b"></i>
 				<ion-option-button class="button-assertive icon-left ion-trash-b" ng-click="removeTrainee(trainee)">Delete</ion-option-button>
 			</ion-item>
 		</ion-list>
@@ -37,7 +39,7 @@
 		<button class="button button-calm" ng-click="signUp()">Add Client</button>
 	</div> -->
 	<div class="tabs tabs-icon-top" ng-controller="indexController">
-	  <a ng-click="loggerButton()" class="tab-item">
+	  <a ng-click="" class="tab-item">
 	    <i class="icon ion-edit"></i>
 	    Exercise Logger
 	  </a>
@@ -55,4 +57,5 @@
 	  </a>
 	</div>
 </ion-view>
+
 

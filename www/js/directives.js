@@ -27,6 +27,7 @@ app.directive('amcharts', function() {
                 })
             }
 					}
+					console.log($scope.setNameFromDataChart)
 
 					var seconds = ((chartData[0].year % 60000) / 1000).toFixed(2).toString();
 					loadChart = function() {
@@ -102,4 +103,32 @@ app.directive('amcharts', function() {
 			}
 		}
 
+})
+
+app.directive('loggerbutton', function (){
+
+	return {
+		restrict: "E",
+		template: '<button class="button button-block button-balanced" ng-click="addWorkOutLogger(trainee.id)" ng-disabled="buttonDisableLogger()"><i class="ion-plus"></i> Add Workout</button>',
+			controller: function($scope, mainFactory, $http, $stateParams, $state) {
+				
+				$scope.trainer = angular.fromJson(window.localStorage['savedUser'])
+				var trainer_id = $scope.trainer.id
+
+				mainFactory.getTrainersTrainees(trainer_id, function(data) {
+					$scope.trainees = data.data
+					// console.log($scope.trainees)
+				})	
+				
+				// $scope.buttonDisableLogger = function () {
+				// 	if($scope.trainees[0].id ===15) {
+				// 		return true;
+				// 	} else {
+				// 		return false;
+				// 	}
+				// }	
+			}
+
+		}
+	
 })

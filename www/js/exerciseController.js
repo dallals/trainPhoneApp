@@ -7,7 +7,6 @@ app.controller('exerciseController', ["$scope", 'mainFactory','$http', '$locatio
 
 	mainFactory.getOneExercise($stateParams.id, function(data){
 		// window.ID37632 = $stateParams.id
-		console.log(data)
 		$scope.exercises = data.data;
 	})
 

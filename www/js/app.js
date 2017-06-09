@@ -12,7 +12,7 @@ app.config(function(gravatarServiceProvider){
       "default": 'mm'  // Mystery man as default for missing avatars
     };
     gravatarServiceProvider.secure = true;
-})
+});
 
 app.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider.state('index', {
@@ -79,6 +79,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
     url: '/graph/set/:id',
     templateUrl: 'partials/graph.html',
     controller: 'exerciseController',
+    cache: false
+  });
+  $stateProvider.state('logger', {
+    url: '/logger/:id',
+    templateUrl: 'partials/logger.html',
+    controller: 'trainersController',
     cache: false
   });
   // $stateProvider.state('tabTrainers', {
