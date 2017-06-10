@@ -19,6 +19,7 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 			$scope.trainerexercises = data
 		})
 
+
 	$scope.reloadTraineesExercise = function(){
 		mainFactory.getAllTraineeExercises($stateParams.id, function(data){
 			$scope.listExcersizes = data 
@@ -28,15 +29,10 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 		})
 	}
 	$scope.reloadTraineesExercise()
-	// mainFactory.getAllTraineeExercises($stateParams.id, function(data){
-	// 	$scope.listExcersizes = data 
-	// 	$scope.exercises = data
-	// 	$scope.count = data.length
-	// })
 
 	$scope.filterByDateWeek = function () {
-		// $scope.reloadTraineesExercise()
-		var allExercises = $scope.exercises
+		
+		var allExercises = $scope.listExcersizes
 		var currentDate = Date.now()
 		var oneWeekAgo = new Date();
 		oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
@@ -53,8 +49,8 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 	}
 
 	$scope.filterByDateMonth = function () {
-		// $scope.reloadTraineesExercise();
-		var allExercises = $scope.exercises
+	
+		var allExercises = $scope.listExcersizes
 		var currentDate = Date.now()
 		var oneMonthAgo = new Date();
 		oneMonthAgo.setDate(oneMonthAgo.getDate() - 30);
@@ -72,9 +68,7 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 	}
 
 	$scope.filterByDateThreeMonths = function () {
-		// $scope.reloadTraineesExercise();
-
-		var allExercises = $scope.exercises
+		var allExercises = $scope.listExcersizes
 		var currentDate = Date.now()
 		var threeMonthAgo = new Date();
 		threeMonthAgo.setDate(threeMonthAgo.getDate() - 90);
