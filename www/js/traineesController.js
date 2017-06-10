@@ -19,13 +19,77 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 			$scope.trainerexercises = data
 		})
 
+	$scope.reloadTraineesExercise = function(){
+		mainFactory.getAllTraineeExercises($stateParams.id, function(data){
+			$scope.listExcersizes = data 
+			$scope.exercises = data
+			$scope.count = data.length
+			$scope.$broadcast('scroll.refreshComplete');
+		})
+	}
+	$scope.reloadTraineesExercise()
+	// mainFactory.getAllTraineeExercises($stateParams.id, function(data){
+	// 	$scope.listExcersizes = data 
+	// 	$scope.exercises = data
+	// 	$scope.count = data.length
+	// })
 
-	mainFactory.getAllTraineeExercises($stateParams.id, function(data){
-		$scope.listExcersizes = data 
-		$scope.exercises = data
-		$scope.count = data.length
-	})
+	$scope.filterByDateWeek = function () {
+		// $scope.reloadTraineesExercise()
+		var allExercises = $scope.exercises
+		var currentDate = Date.now()
+		var oneWeekAgo = new Date();
+		oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+		var covertDate = Number(allExercises[0].created_at)
+		var thisWeekExercises = [];
+		for(var i = 0; i < allExercises.length; i++) {
+			 allExercises[i].created_at = Number(allExercises[i].created_at)
+			 if(allExercises[i].created_at > oneWeekAgo) {
+			 		thisWeekExercises.push(allExercises[i])
+			 } 
+		}
+		$scope.exercises = thisWeekExercises;
+		$scope.count = thisWeekExercises.length
+	}
 
+	$scope.filterByDateMonth = function () {
+		// $scope.reloadTraineesExercise();
+		var allExercises = $scope.exercises
+		var currentDate = Date.now()
+		var oneMonthAgo = new Date();
+		oneMonthAgo.setDate(oneMonthAgo.getDate() - 30);
+		oneMonthAgo = Date.parse(oneMonthAgo)
+		var covertDate = Number(allExercises[0].created_at)
+		var thisMonthExercises = [];
+		for(var i = 0; i < allExercises.length; i++) {
+			 allExercises[i].created_at = Number(allExercises[i].created_at)
+			 if(allExercises[i].created_at > oneMonthAgo) {
+			 		thisMonthExercises.push(allExercises[i])
+			 } 
+		}
+		$scope.exercises = thisMonthExercises;
+		$scope.count = thisMonthExercises.length
+	}
+
+	$scope.filterByDateThreeMonths = function () {
+		// $scope.reloadTraineesExercise();
+
+		var allExercises = $scope.exercises
+		var currentDate = Date.now()
+		var threeMonthAgo = new Date();
+		threeMonthAgo.setDate(threeMonthAgo.getDate() - 90);
+		threeMonthAgo = Date.parse(threeMonthAgo)
+		var covertDate = Number(allExercises[0].created_at)
+		var thisThreeMonthExercises = [];
+		for(var i = 0; i < allExercises.length; i++) {
+			 allExercises[i].created_at = Number(allExercises[i].created_at)
+			 if(allExercises[i].created_at > threeMonthAgo) {
+			 		thisThreeMonthExercises.push(allExercises[i])
+			 } 
+		}
+		$scope.exercises = thisThreeMonthExercises;
+		$scope.count = thisThreeMonthExercises.length
+	}
 
 	$scope.addExercise = function(exercise) {
 		exercise.trainer_id = angular.fromJson(window.localStorage['savedUser']).id
@@ -56,13 +120,6 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 		$state.go('addExercise', {id: id})
 	};
 
-	$scope.reloadTraineesExercise = function(){
-		mainFactory.getAllTraineeExercises($stateParams.id, function(data){
-			$scope.listExcersizes = data 
-			$scope.exercises = data
-			$scope.$broadcast('scroll.refreshComplete');
-		})
-	}
 
 	$scope.clientButton = function(){
 		$state.go('trainers')

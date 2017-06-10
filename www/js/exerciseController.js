@@ -46,13 +46,5 @@ app.controller('exerciseController', ["$scope", 'mainFactory','$http', '$locatio
 		$state.go('graph', {id: setid})
 	}
 
-	// var convertCSV = function (){ 
-	// 	var Url = '/assets/SensorFusion.csv'
-	// 	var set = $http.get(Url).then(function(data) {
-	// 		console.log($csv.convertStringToJson(data.data))
-	// 		return $csv.convertStringToJson(data.data)
-	// 	}) 
-	// }
-	// convertCSV();
 
 }])

@@ -12,19 +12,33 @@
 	<ion-list>
 		<ion-item style="border: 0px;">
 			<h2 style="margin-left: 15px">Total Workouts: {{count}}</h2>
-			<h2 style="margin-left: 15px">Last Workout Date: {{exercises[0].created_at | date: 'MMM dd, yyyy h:mm a'}}</h2>
+			<h2 style="margin-left: 15px">Last Workout Date: {{exercises[0].created_at | date: 'MMM dd, yyyy h:mm a'}}</h2><br>
+			<button class="button button-calm button-small" ng-click="filterByDateWeek()">Last Weeks Workouts</button>
+			<button class="button button-calm button-small" ng-click="filterByDateMonth()">Last Months Workouts</button>
+			<button class="button button-calm button-small" ng-click="filterByDateThreeMonths()">Last 3 Months of Workouts</button>
+<!-- 		  <label style="border: 0px;" class="item item-input item-select">
+		    <div class="input-label" style="margin: 0px 15px; width: 100%">
+		      <span style="font-size: 22px; font-weight: bold; overflow: visible">Select a date</span>
+		    </div>
+		    <select name="Date" id="Date">
+		      <option>Select a time period</option>
+		      <option ng-change="filterByDateWeek()">One Week Ago</option>
+		      <option ng-change="filterByDateMonth()">One Month Ago</option>
+		      <option ng-change="filterByDateThreeMonths()">Three Months Ago</option>
+		    </select>        
+		  </label> -->
 		</ion-item>
-	<div style="margin: 15px;">
-		<button ng-controller="indexController" class="button button-block button-balanced" ng-click="addWorkOut(trainee.id)"><i class="ion-plus"></i> Add Workout</button>		
-	</div>
-	<br>
+	<label class="card item-input">
+		<i style="margin-left: 15px;" class="icon ion-search placeholder-icon"></i>
+		<input style="margin-left: 15px;" type="search" placeholder="Search" ng-model='filter_name'>
+	</label>
 	<div class="card">
 		<div style="">
 			<h4 style="text-align: center; color: #777">Previous Workouts</h4>
 		</div>
 		</ion-list>
 			<ion-list>
-				<ion-item ng-click="showExercise(exercise.exerciseid)" class="item-icon-right item-remove-animate" ng-repeat="exercise in exercises">
+				<ion-item ng-click="showExercise(exercise.exerciseid)" class="item-icon-right item-remove-animate" ng-repeat="exercise in exercises | filter: filter_name">
 					<div style="display: inline-block; width: 35%; border: 1px; border-color: #777; border-radius: 3px; margin: auto; height: 30px; text-align: center; vertical-align: top;" class="card-type ">
 						<span style = "font-size: 16px; ">{{exercise.exercisetypename}}</span>
 					</div>

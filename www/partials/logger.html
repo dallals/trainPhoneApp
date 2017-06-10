@@ -5,14 +5,11 @@
 	  </a>
 	</ion-nav-buttons>
 	<div class="bar-bar-subheader" style="margin-top: 65px;">
-	  <label style="border: 0px;" class="item item-input item-select">
-	    <div class="input-label" style="margin: 0px 15px; width: 100%">
-	      <span style="font-size: 22px; font-weight: bold;">{{selectedTraineeName}}</span>
-	    </div>
-	    <select name="Clients" id="Clients" ng-model="trainee" ng-change="filterTrainee(trainee)">
-	      <option>Select Client</option>
-	      <option value="{{trainee}}" ng-repeat="trainee in trainees | filter: filter_name">{{trainee.first_name}} {{trainee.last_name}}</option>
-	    </select>        
+	  <label style="border: 0px;" class="item item-input">
+	    <div class="input-label" style="margin: 0px 15px; width: 90%">
+	      <span style="font-size: 22px; font-weight: bold; width: 90%">{{selectedTraineeName}}</span>  
+	    </div> 
+	    <button class="button-clear" style="width: 10%" ng-click="disableButton()" ng-show="selectedTraineeName != 'Select A Client'"><i class="ion ion-android-close" style="background: #fff; color: red ; font-size: 20px ; float: right"></i></button>     
 	  </label>
 		<label class="card item-input">
 			<i style="margin-left: 15px;" class="icon ion-search placeholder-icon"></i>
@@ -34,10 +31,6 @@
 			</ion-item>
 		</ion-list>
 	</ion-content>
-<!-- 	<div class="bar bar-footer bar-stable">
-		<button ng-controller="indexController" class="button button-assertive" ng-click="signOutUser()">Log Out</button>
-		<button class="button button-calm" ng-click="signUp()">Add Client</button>
-	</div> -->
 	<div class="tabs tabs-icon-top" ng-controller="indexController">
 	  <a ng-click="" class="tab-item">
 	    <i class="icon ion-edit"></i>

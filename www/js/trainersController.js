@@ -33,12 +33,6 @@ app.controller('trainersController', function($scope, $http, mainFactory, $locat
 		function getTrainersTrainees() {
 			mainFactory.getTrainersTrainees(trainer_id, function(data) {
 				$scope.trainees = data.data
-				// if(!$scope.trainees.avatar) {
-				// 	for(var i = 0; i < $scope.trainees.length; i++){
-				// 		$scope.trainees[i].avatar = "https://thumbs.dreamstime.com/x/man-athlete-weight-lifting-avatar-character-illustration-design-89234278.jpg"
-				// 	}
-				// }
-				// console.log($scope.trainees)
 			})		
 		};
 		getTrainersTrainees()
@@ -126,9 +120,10 @@ app.controller('trainersController', function($scope, $http, mainFactory, $locat
 		}
 	}
 
-	// $scope.disableButtonLogger = function () {
-	// 	selectTrainee = false
-	// }
+	$scope.disableButton = function () {
+		selectedTrianee = false
+		$scope.selectedTraineeName = "Select A Client"
+	}
 
 	$scope.addWorkOutLogger = function(id) {
 		$state.go('addExercise', {id: id})
