@@ -4,7 +4,7 @@
 	    <i class="icon ion-person-add"></i>
 	  </a>
 	</ion-nav-buttons>
-	<ion-content>
+	<ion-content style="margin-bottom: 30px;">
 <!-- 	<button class="button button-balanced button-block" ng-click="clientButton()" style="margin-top: 0px;">All Clients</button> -->
 	<ion-refresher pulling-text="Pull to refresh" on-refresh="reloadTraineesExercise()"></ion-refresher>
 
@@ -12,19 +12,21 @@
 	<ion-list>
 		<ion-item style="border: 0px;">
 			<h2 style="margin-left: 15px">Total Workouts: {{count}}</h2>
-			<h2 style="margin-left: 15px">Last Workout Date: {{exercises[0].created_at | date: 'MMM dd, yyyy h:mm a'}}</h2><br>
-			<button class="button button-calm button-small" ng-click="filterByDateWeek()">Last Weeks Workouts</button>
-			<button class="button button-calm button-small" ng-click="filterByDateMonth()">Last Months Workouts</button>
-			<button class="button button-calm button-small" ng-click="filterByDateThreeMonths()">Last 3 Months of Workouts</button>
+			<h2 style="margin-left: 15px">Last Workout Date: {{exercises[0].created_at | date: 'MMM dd, yyyy h:mm a'}}</h2>
+			<h2 style="margin-left: 15px; color:red">{{workoutTimeFrame}}</h2>
+			<br>
+			<button class="button button-calm button-small" ng-click="switchDate('week')">Last Weeks Workouts</button>
+			<button class="button button-calm button-small" ng-click="switchDate('month')">Last Months Workouts</button>
+			<button class="button button-calm button-small" ng-click="switchDate('threemonth')">Last 3 Months of Workouts</button>
 <!-- 		  <label style="border: 0px;" class="item item-input item-select">
 		    <div class="input-label" style="margin: 0px 15px; width: 100%">
-		      <span style="font-size: 22px; font-weight: bold; overflow: visible">Select a date</span>
+		      <span style="font-size: 18px; font-weight: bold; overflow: visible">Select a date</span>
 		    </div>
-		    <select name="Date" id="Date">
+		    <select ng-model="selected" ng-change="switchDate(selected)">
 		      <option>Select a time period</option>
-		      <option ng-change="filterByDateWeek()">One Week Ago</option>
-		      <option ng-change="filterByDateMonth()">One Month Ago</option>
-		      <option ng-change="filterByDateThreeMonths()">Three Months Ago</option>
+		      <option value="week">One Week Ago</option>
+		      <option value="month">One Month Ago</option>
+		      <option value="threemonth" >Three Months Ago</option>
 		    </select>        
 		  </label> -->
 		</ion-item>

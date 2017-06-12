@@ -26,63 +26,85 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 			$scope.exercises = data
 			$scope.count = data.length
 			$scope.$broadcast('scroll.refreshComplete');
+			$scope.workoutTimeFrame = ''
 		})
 	}
 	$scope.reloadTraineesExercise()
 
-	$scope.filterByDateWeek = function () {
+	// $scope.filterByDateWeek = function () {
 		
-		var allExercises = $scope.listExcersizes
-		var currentDate = Date.now()
-		var oneWeekAgo = new Date();
-		oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-		var covertDate = Number(allExercises[0].created_at)
-		var thisWeekExercises = [];
-		for(var i = 0; i < allExercises.length; i++) {
-			 allExercises[i].created_at = Number(allExercises[i].created_at)
-			 if(allExercises[i].created_at > oneWeekAgo) {
-			 		thisWeekExercises.push(allExercises[i])
-			 } 
-		}
-		$scope.exercises = thisWeekExercises;
-		$scope.count = thisWeekExercises.length
-	}
-
-	$scope.filterByDateMonth = function () {
+	// 	var allExercises = $scope.listExcersizes
+	// 	var currentDate = Date.now()
+	// 	var oneWeekAgo = new Date();
+	// 	oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+		
+	// 	var thisWeekExercises = [];
+	// 	for(var i = 0; i < allExercises.length; i++) {
+	// 		 allExercises[i].created_at = Number(allExercises[i].created_at)
+	// 		 if(allExercises[i].created_at > oneWeekAgo) {
+	// 		 		thisWeekExercises.push(allExercises[i])
+	// 		 } 
+	// 	}
+	// 	$scope.exercises = thisWeekExercises;
+	// 	$scope.count = thisWeekExercises.length
+	// }
 	
-		var allExercises = $scope.listExcersizes
-		var currentDate = Date.now()
-		var oneMonthAgo = new Date();
-		oneMonthAgo.setDate(oneMonthAgo.getDate() - 30);
-		oneMonthAgo = Date.parse(oneMonthAgo)
-		var covertDate = Number(allExercises[0].created_at)
-		var thisMonthExercises = [];
-		for(var i = 0; i < allExercises.length; i++) {
-			 allExercises[i].created_at = Number(allExercises[i].created_at)
-			 if(allExercises[i].created_at > oneMonthAgo) {
-			 		thisMonthExercises.push(allExercises[i])
-			 } 
-		}
-		$scope.exercises = thisMonthExercises;
-		$scope.count = thisMonthExercises.length
-	}
 
-	$scope.filterByDateThreeMonths = function () {
+	$scope.switchDate = function (selected) {
 		var allExercises = $scope.listExcersizes
-		var currentDate = Date.now()
-		var threeMonthAgo = new Date();
-		threeMonthAgo.setDate(threeMonthAgo.getDate() - 90);
-		threeMonthAgo = Date.parse(threeMonthAgo)
-		var covertDate = Number(allExercises[0].created_at)
-		var thisThreeMonthExercises = [];
-		for(var i = 0; i < allExercises.length; i++) {
-			 allExercises[i].created_at = Number(allExercises[i].created_at)
-			 if(allExercises[i].created_at > threeMonthAgo) {
-			 		thisThreeMonthExercises.push(allExercises[i])
-			 } 
+		key = selected;
+		switch (key) {
+
+			case 'week': 
+				var currentDate = Date.now()
+				var oneWeekAgo = new Date();
+				oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+				
+				var thisWeekExercises = [];
+				for(var i = 0; i < allExercises.length; i++) {
+					 allExercises[i].created_at = Number(allExercises[i].created_at)
+					 if(allExercises[i].created_at > oneWeekAgo) {
+					 		thisWeekExercises.push(allExercises[i])
+					 } 
+				}
+				$scope.exercises = thisWeekExercises;
+				$scope.count = thisWeekExercises.length
+				$scope.workoutTimeFrame = 'Workouts for last 7 days'
+				break;
+			case 'month':	
+				var currentDate = Date.now()
+				var oneMonthAgo = new Date();
+				oneMonthAgo.setDate(oneMonthAgo.getDate() - 30);
+				oneMonthAgo = Date.parse(oneMonthAgo)
+				
+				var thisMonthExercises = [];
+				for(var i = 0; i < allExercises.length; i++) {
+					 allExercises[i].created_at = Number(allExercises[i].created_at)
+					 if(allExercises[i].created_at > oneMonthAgo) {
+					 		thisMonthExercises.push(allExercises[i])
+					 } 
+				}
+				$scope.exercises = thisMonthExercises;
+				$scope.count = thisMonthExercises.length
+				$scope.workoutTimeFrame = 'Workouts for last 30 days'
+				break;
+			case "threemonth":
+				var currentDate = Date.now()
+				var threeMonthAgo = new Date();
+				threeMonthAgo.setDate(threeMonthAgo.getDate() - 90);
+				threeMonthAgo = Date.parse(threeMonthAgo)
+				var thisThreeMonthExercises = [];
+				for(var i = 0; i < allExercises.length; i++) {
+					 allExercises[i].created_at = Number(allExercises[i].created_at)
+					 if(allExercises[i].created_at > threeMonthAgo) {
+					 		thisThreeMonthExercises.push(allExercises[i])
+					 } 
+				}
+				$scope.exercises = thisThreeMonthExercises;
+				$scope.count = thisThreeMonthExercises.length
+				$scope.workoutTimeFrame = 'Workouts for last 90 days'
+				break;
 		}
-		$scope.exercises = thisThreeMonthExercises;
-		$scope.count = thisThreeMonthExercises.length
 	}
 
 	$scope.addExercise = function(exercise) {

@@ -4,7 +4,7 @@
 	    <i class="icon ion-person-add"></i>
 	  </a>
 	</ion-nav-buttons>
-	<ion-content>
+	<ion-content style="margin-bottom: 50px;">
 	<ion-refresher pulling-text="Pull to refresh" on-refresh="reloadTrainees()"></ion-refresher>
   <label style="border: 0px;" class="item item-input item-select">
     <div class="input-label" style="margin: 0px 15px; width: 100%">
@@ -22,7 +22,7 @@
 			<input style="margin-left: 15px;" type="search" placeholder="Search" ng-model='filter_name'>
 		</label>
 		<ion-list>
-			<ion-item ng-click="showTrainee(trainee)" class="item-remove-animate item-icon-right item-thumbnail-left" ng-repeat="trainee in trainees | filter: filter_name">
+			<ion-item ng-click="showTrainee(trainee)" class="item-remove-animate item-icon-right item-thumbnail-left" ng-repeat="trainee in trainees | filter: filter_name" >
 				<img gravatar-src="trainee.email" gravatar-size="50" style="border-radius: 50%; height: 60px; width: 60px;">
 				<h3 style="margin-left: 15px;">{{trainee.first_name}} {{trainee.last_name}}</h3>
 				<!-- <h4>{{trainee.email}}</h4> -->
