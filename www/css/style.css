@@ -1,6 +1,7 @@
 /* Empty. Add your own CSS if you like */
 	a i {
 		color: #1b5bc4;
+
 	}
 
 /*	.tabs {
@@ -28,3 +29,8 @@ p, h1, h2, h3, h4, span {
     border-top: 0; }
   .card .item:last-child {
     border-bottom: 0; }
+
+div.active{
+  background: #1b5bc4;
+  color: white;
+}

@@ -8,16 +8,40 @@
 <!-- 	<button class="button button-balanced button-block" ng-click="clientButton()" style="margin-top: 0px;">All Clients</button> -->
 	<ion-refresher pulling-text="Pull to refresh" on-refresh="reloadTraineesExercise()"></ion-refresher>
 
-	<h3 style="margin-left: 30px;">{{trainee.first_name}} {{trainee.last_name}}</h3>
+	<!-- <h3 style="margin-left: 30px;">{{trainee.first_name}} {{trainee.last_name}}</h3> -->
+	<div class="tabs tabs-top" style=" margin-bottom: 30px; border: 1px; margin-top: -65px;">
+		<div ng-class="isActive('all')" style="border: 1px; padding: 2px 10px; width: 25%; display: inline-block;">
+		  <a class="tab-item" ng-click="switchDate('all')" >
+		    All
+		  </a>			
+		</div>
+		<div ng-class="isActive('week')" style="border: 1px; padding: 2px 10px; width: 25%; display: inline-block;">
+		  <a class="tab-item" ng-click="switchDate('week')" >
+		    Week
+		  </a>			
+		</div>
+		<div ng-class="isActive('month')" style="border: 1px; padding: 2px 10px; width: 25%; display: inline-block;">
+			  <a class="tab-item" ng-click="switchDate('month')" style="">
+			    Month
+			  </a>
+		</div>
+
+		<div ng-class="isActive('6month')" style="border: 1px; padding: 2px 10px; width: 25%; display: inline-block;">
+			  <a class="tab-item" ng-click="switchDate('threemonth')" style="">
+			    6 Months
+			  </a>	
+		</div>
+
+	</div>
+	<br><br><br>
 	<ion-list>
 		<ion-item style="border: 0px;">
 			<h2 style="margin-left: 15px">Total Workouts: {{count}}</h2>
 			<h2 style="margin-left: 15px">Last Workout Date: {{exercises[0].created_at | date: 'MMM dd, yyyy h:mm a'}}</h2>
-			<h2 style="margin-left: 15px; color:red">{{workoutTimeFrame}}</h2>
-			<br>
-			<button class="button button-calm button-small" ng-click="switchDate('week')">Last Weeks Workouts</button>
+			<!-- <h2 style="margin-left: 15px; color:red">{{workoutTimeFrame}}</h2> -->
+<!-- 			<button class="button button-calm button-small" ng-click="switchDate('week')">Last Weeks Workouts</button>
 			<button class="button button-calm button-small" ng-click="switchDate('month')">Last Months Workouts</button>
-			<button class="button button-calm button-small" ng-click="switchDate('threemonth')">Last 3 Months of Workouts</button>
+			<button class="button button-calm button-small" ng-click="switchDate('threemonth')">Last 3 Months of Workouts</button> -->
 <!-- 		  <label style="border: 0px;" class="item item-input item-select">
 		    <div class="input-label" style="margin: 0px 15px; width: 100%">
 		      <span style="font-size: 18px; font-weight: bold; overflow: visible">Select a date</span>
@@ -29,6 +53,14 @@
 		      <option value="threemonth" >Three Months Ago</option>
 		    </select>        
 		  </label> -->
+		  <label style="border: 0px;" class="item item-input item-select">
+		    <div class="input-label" style="margin: 0px 15px; width: 100%">
+		      <span style="font-size: 18px; font-weight: bold; overflow: visible">Exercise</span>
+		    </div>
+		    <select ng-model="selected" ng-change="getExerciseByName(selected)">
+		      <option ng-repeat="exercise in trainerexercises">{{exercise.name}}</option>
+		    </select>        
+		  </label>
 		</ion-item>
 	<label class="card item-input">
 		<i style="margin-left: 15px;" class="icon ion-search placeholder-icon"></i>
@@ -55,7 +87,7 @@
 				</ion-item>
 			</ion-list>
 	</div>
-	
+	<graphsets></graphsets>
 <!-- 		<button class="button button-balanced button-full" ng-click="addWorkOut(trainee.id)">Add Workout</button> -->
 	</ion-content>
 	<div class="tabs tabs-icon-top" ng-controller="indexController">
@@ -78,3 +110,4 @@
 	  </a>
 	</div>
 </ion-view>
+

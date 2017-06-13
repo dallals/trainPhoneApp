@@ -105,30 +105,87 @@ app.directive('amcharts', function() {
 
 })
 
-// app.directive('loggerbutton', function (){
+app.directive('graphsets', function (){
 
-// 	return {
-// 		restrict: "E",
-// 		template: '<button class="button button-block button-balanced" ng-click="addWorkOutLogger(trainee.id)" ng-disabled="buttonDisableLogger()"><i class="ion-plus"></i> Add Workout</button>',
-// 			controller: function($scope, mainFactory, $http, $stateParams, $state) {
-				
-// 				$scope.trainer = angular.fromJson(window.localStorage['savedUser'])
-// 				var trainer_id = $scope.trainer.id
+	return {
+		restrict: "E",
+		template: '<div id="chartdiv" style="width:100%; height:500px;"></div>',
+		controller: function($scope, mainFactory, $http, $location, $stateParams, $state, $csv, $rootScope) {
+			var chartData2 = $rootScope.grapherData
+			$scope.chart = function () {
+				console.log(chartData2, 'directive')
+					
+					// var seconds = ((chartData[0].year % 60000) / 1000).toFixed(2).toString();
+					loadChart = function() {
+								var chart = AmCharts.makeChart( "chartdiv", {
+								  "type": "serial",
+								  "theme": "light",
+								  "marginRight": 40,
+								  "marginLeft": 40,
+								  "autoMarginOffset": 20,
+								  "dataDateFormat": "YYYY-MM-DD",
+								  "valueAxes": [ {
+								    "id": "v1",
+								    "axisAlpha": 0,
+								    "position": "left",
+								    "ignoreAxisWidth": true
+								  } ],
+								  "balloon": {
+								    "borderThickness": 1,
+								    "shadowAlpha": 0
+								  },
+								  "graphs": [ {
+								    "id": "g1",
+								    "balloon": {
+								      "drop": false,
+								      "adjustBorderColor": true,
+								      "color": "#ffffff",
+								      "type": "smoothedLine"
+								    },
+								    "fillAlphas": 0.2,
+								    "bullet": "round",
+								    "bulletBorderAlpha": 1,
+								    "bulletColor": "#FFFFFF",
+								    "bulletSize": 5,
+								    "hideBulletsCount": 50,
+								    "lineThickness": 2,
+								    "title": "red line",
+								    "useLineColorForBulletBorder": true,
+								    "valueField": "weight",
+								    "balloonText": "<span style='font-size:18px;'>[[weight]]</span>"
+								  } ],
+								  "chartCursor": {
+								    "valueLineEnabled": true,
+								    "valueLineBalloonEnabled": true,
+								    "cursorAlpha": 0,
+								    "zoomable": false,
+								    "valueZoomable": true,
+								    "valueLineAlpha": 0.5
+								  },
+								  "valueScrollbar": {
+								    "autoGridCount": true,
+								    "color": "#000000",
+								    "scrollbarHeight": 50
+								  },
+								  "categoryField": "created_at",
+								  "categoryAxis": {
+										"autoGridCount": false,
+									 	"gridCount": 10,
+									  "gridPosition": "start",
+								    "labelRotation": 90
+								  },
+								  "export": {
+								    "enabled": true
+								  },
+								  "dataProvider": chartData2
+								} );
+											}
+					loadChart()
+	 
+				// })
+			}
+			$scope.chart()
+		}
+	}
 
-// 				mainFactory.getTrainersTrainees(trainer_id, function(data) {
-// 					$scope.trainees = data.data
-// 					// console.log($scope.trainees)
-// 				})	
-				
-// 				// $scope.buttonDisableLogger = function () {
-// 				// 	if($scope.trainees[0].id ===15) {
-// 				// 		return true;
-// 				// 	} else {
-// 				// 		return false;
-// 				// 	}
-// 				// }	
-// 			}
-
-// 		}
-	
-// })
+})
