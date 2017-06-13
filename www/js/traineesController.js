@@ -1,9 +1,10 @@
 
-app.controller('traineesController', function($scope, mainFactory, $stateParams, $state, $window, $ionicPopup, Trainer, $http, $rootScope) {
+app.controller('traineesController', function($scope, mainFactory, $stateParams, $state, $window, $ionicPopup, Trainer, $http) {
 
 
 	var trainer = angular.fromJson(window.localStorage['savedUser'])
 	$scope.trainerId = angular.fromJson(window.localStorage['savedUser']).id
+	// $rootScope.grapherData = ''
 
 	mainFactory.getOneTrainee($stateParams.id, function(data){
 		var trainerTrainee = angular.fromJson(window.localStorage['savedUser'])
@@ -116,40 +117,12 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 					}
 				}
 				$scope.exercises = $scope.listExcersizes
+				// $rootScope.grapherData = ''
 				$scope.count = $scope.exercises.length
 				break 
 		}
 	}
 
-	$scope.getExerciseByName = function(name) {
-		var apiUrl = "https://vast-depths-36442.herokuapp.com"
-		var apiLocal = "http://localhost:8000"
-		$scope.exercises = $scope.listExcersizes
-		var filteredExercises = [];
-		for(var i = 0; i < $scope.exercises.length; i++) {
-			if($scope.exercises[i].exercisename === name ){
-				filteredExercises.push($scope.exercises[i])
-			}
-		}
-		$scope.exercises = filteredExercises
-		$scope.count = $scope.exercises.length
-
-		var dataGraph = [];
-		for(var i = 0; i < $scope.exercises.length; i++) {
-			var id = $scope.exercises[i].exerciseid
-			$http.get(apiUrl+'/trainees/setandexercises/'+id+'.json').then(function(data) {
-				var dbData = data.data
-				for(var x = 0; x < dbData.length; x++) {
-					dataGraph.push(dbData[x])
-					$rootScope.grapherData = dataGraph
-					console.log($rootScope.grapherData, 'rootscope')
-					window.localStorage['graphData'] = angular.toJson(dataGraph)
-					// console.log(window.localStorage.getItem('graphData'))
-				}
-			})
-
-		}
-	}	
 
 	$scope.addExercise = function(exercise) {
 		exercise.trainer_id = angular.fromJson(window.localStorage['savedUser']).id
@@ -187,4 +160,117 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 		})
 	}
 
+	// $scope.grapherData = [];
+	// var chartData2
+	// $scope.$watch('grapherData', function(newValue, oldValue, scope) {
+	// 	$scope.grapherData = scope.grapherData;
+	// 	console.log($scope.grapherData, 'watcher')
+	// 	// chartData2 = $scope.grapherData
+	// })
+
+	$scope.getExerciseByName = function(name) {
+		var apiUrl = "https://vast-depths-36442.herokuapp.com"
+		var apiLocal = "http://localhost:8000"
+		$scope.exercises = $scope.listExcersizes
+		var filteredExercises = [];
+		for(var i = 0; i < $scope.exercises.length; i++) {
+			if($scope.exercises[i].exercisename === name ){
+				filteredExercises.push($scope.exercises[i])
+			}
+		}
+		$scope.exercises = filteredExercises
+		$scope.count = $scope.exercises.length
+		var dataGraph = [];
+		for(var i = 0; i < $scope.exercises.length; i++) {
+			var id = $scope.exercises[i].exerciseid
+				// console.log(dbData, 'before sort')
+				// dbData.sort(function(a, b) {
+				// 	return a.created_at - b.created_at
+				// })
+				// console.log(dbData, 'after sort')
+
+			mainFactory.GetSetAndExercise(id, function(data) {
+				var dbData = data
+				for(var x = 0; x < dbData.length; x++) {
+					dbData[x].created_at = Number(dbData[x].created_at)
+					dbData[x].created_at = new Date(dbData[x].created_at).toDateString()
+					dbData[x].created_at = dbData[x].setname + ' ' + dbData[x].created_at
+					dataGraph.push(dbData[x])
+				}
+				$scope.grapherData = dataGraph
+				$scope.chart()
+			})
+		}		
+	}	
+
+			
+	$scope.chart = function () {
+			var chartData2 = $scope.grapherData
+			// var seconds = ((chartData[0].year % 60000) / 1000).toFixed(2).toString();
+			loadChart = function() {
+						var chart = AmCharts.makeChart( "chartdiv", {
+						  "type": "serial",
+						  "theme": "light",
+						  "marginRight": 40,
+						  "marginLeft": 40,
+						  "autoMarginOffset": 20,
+						  "dataDateFormat": "YYYY-MM-DD",
+						  "valueAxes": [ {
+						    "id": "v1",
+						    "axisAlpha": 0,
+						    "position": "left",
+						    "ignoreAxisWidth": true
+						  } ],
+						  "balloon": {
+						    "borderThickness": 1,
+						    "shadowAlpha": 0
+						  },
+						  "graphs": [ {
+						    "id": "g1",
+						    "balloon": {
+						      "drop": false,
+						      "adjustBorderColor": true,
+						      "color": "#ffffff",
+						      "type": "smoothedLine"
+						    },
+						    "fillAlphas": 0.2,
+						    "bullet": "round",
+						    "bulletBorderAlpha": 1,
+						    "bulletColor": "#FFFFFF",
+						    "bulletSize": 5,
+						    "hideBulletsCount": 50,
+						    "lineThickness": 2,
+						    "title": "red line",
+						    "useLineColorForBulletBorder": true,
+						    "valueField": "weight",
+						    "balloonText": "<span style='font-size:18px;'>[[weight]]</span>"
+						  } ],
+						  "chartCursor": {
+						    "valueLineEnabled": true,
+						    "valueLineBalloonEnabled": true,
+						    "cursorAlpha": 0,
+						    "zoomable": false,
+						    "valueZoomable": true,
+						    "valueLineAlpha": 0.5
+						  },
+						  "valueScrollbar": {
+						    "autoGridCount": true,
+						    "color": "#000000",
+						    "scrollbarHeight": 50
+						  },
+						  "categoryField": "created_at",
+						  "categoryAxis": {
+								"autoGridCount": false,
+							 	"gridCount": 10,
+							  "gridPosition": "start",
+						    "labelRotation": 45
+						  },
+						  "export": {
+						    "enabled": true
+						  },
+						  "dataProvider": chartData2
+						} );
+									}
+			loadChart()
+	}
 })

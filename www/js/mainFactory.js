@@ -132,6 +132,12 @@ app.factory('mainFactory', function($http, $location, $state){
 		})
 	};
 
+	factory.GetSetAndExercise = function(id, callback) {
+		$http.get(apiUrl+'/trainees/setandexercises/'+id+'.json').then(function(data){
+			callback(data.data)
+		})
+	};
+
 
 	return factory
 })

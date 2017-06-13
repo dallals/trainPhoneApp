@@ -13,7 +13,7 @@ app.controller('trainersController', function($scope, $http, mainFactory, $locat
 			$scope.trainer = data.data
 		});
 
-		mainFactory.getAllYourExercises($stateParams.id, function(data){
+		mainFactory.getAllYourExercises(trainer_id, function(data){
 			$scope.exercises = data
 		});
 
