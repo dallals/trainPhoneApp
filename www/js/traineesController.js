@@ -5,6 +5,20 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 	var trainer = angular.fromJson(window.localStorage['savedUser'])
 	$scope.trainerId = angular.fromJson(window.localStorage['savedUser']).id
 	// $rootScope.grapherData = ''
+			var ex_array = []
+			var set_array = []
+			var ex_type = []
+			var ex_traineeId = []
+			var ex_exerciseId = []
+			var ex_exercisename = []
+			var ex_setId = []
+			var ex_date = []
+			var ex_firstname = []
+			var ex_lastname = []
+			var wt_array = []
+			var rep_array = []
+			var selectExercises = []
+			var graphData = []
 
 	mainFactory.getOneTrainee($stateParams.id, function(data){
 		var trainerTrainee = angular.fromJson(window.localStorage['savedUser'])
@@ -22,6 +36,7 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 
 	$scope.reloadTraineesExercise = function(){
 		mainFactory.getAllTraineeExercises($stateParams.id, function(data){
+			
 			var date_array = []
 
 			for(var i = 0; i < data.length; i++) {
@@ -42,20 +57,6 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 
 			var count_d = date_array.length
 
-			var ex_array = []
-			var set_array = []
-			var ex_type = []
-			var ex_traineeId = []
-			var ex_exerciseId = []
-			var ex_exercisename = []
-			var ex_setId = []
-			var ex_date = []
-			var ex_firstname = []
-			var ex_lastname = []
-
-			var wt_array = []
-			var rep_array = [] 
-
 			for (var b = 0; b < count_d; b++) {
 				ex_array.push(["0"])
 				ex_type.push(["0"])
@@ -66,11 +67,10 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 				ex_lastname.push(["0"])
 				ex_setId.push(["0"])
 				ex_date.push(["0"])
-				set_array.push(["0"])
-
+				//rep_array.push(["0"])
+				// ex_reps.push(["0"])
 				wt_array.push([0])
 				rep_array.push([0])
-
 			}
 
 			for (var b = 0; b < count_d; b++)  {
@@ -83,10 +83,7 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 
 			}
 
-
-
-			for (var n = 0; n < data.length; n++) {
-				
+			for (var n = 0; n < data.length; n++) {				
 				var date = new Date(data[n].created_at).toDateString('YYYY-MM-DD')
 				var indx = date_array.indexOf(date)
 				var exc = data[n].exercisename
@@ -94,8 +91,7 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 
 				if (indx2 == -1) {
 
-					if (ex_array[indx][0] == "0") {
-						
+					if (ex_array[indx][0] == "0") {					
 						ex_array[indx][0] = exc
 						ex_type[indx][0] = data[n].exercisetypename
 						ex_traineeId[indx][0] = data[n].trainee_id
@@ -105,10 +101,11 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 						ex_lastname[indx][0] = data[n].last_name
 						ex_exercisename[indx][0] = data[n].exercisename
 						ex_date[indx][0] = data[n].created_at
-						set_array[indx][0] = 1
+						// ex_reps[indx][0] = data[n].reps
+						//rep_array[indx][0] = 1
 
 						wt_array[indx][0][0] = data[n].weight
-						rep_array[indx][0][0] = data[n].rep
+						rep_array[indx][0][0] = data[n].reps
 
 					} else {
 						
@@ -121,74 +118,126 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 						ex_firstname[indx].push(data[n].first_name)
 						ex_lastname[indx].push(data[n].last_name)
 						ex_date[indx].push(data[n].created_at)
-						set_array[indx].push(1)
+						// ex_reps[indx].push(data[n].reps)
+						//set_array[indx].push(1)
 
 						wt_array[indx].push([data[n].weight])
-						rep_array[indx].push([data[n].rep])
-
+						rep_array[indx].push([data[n].reps])
 
 					}
 
 				} else {
 
-					set_array[indx][indx2] = set_array[indx][indx2] + 1
+					//set_array[indx][indx2] = set_array[indx][indx2] + 1
 					wt_array[indx][indx2].push(data[n].weight)
-					rep_array[indx][indx2].push(data[n].rep)
+					rep_array[indx][indx2].push(data[n].reps)
+
 
 				}
-
 			}
 
 			var allExercises = []
-			for (var k = 0; k < date_array.length; k++) {
-				// console.log("****")
-				// console.log(date_array[k], 'date')
-				// console.log(allExercises, "****")
-				for (var h = 0; h < ex_array[k].length ; h++ ) {
-					// console.log(ex_array[k][h]);
-					// console.log(ex_type[k][h]);
-					// console.log(ex_traineeId[k][h], 'traineeId');
-					allExercises.push({
-						created_at: ex_date[k][h],
-						setid: ex_setId[k][h],
-						exerciseid: ex_exerciseId[k][h],
-						trainee_id: ex_traineeId[k][h],
-						exercisetypename: ex_type[k][h],
-						exercisename: ex_exercisename[k][h]
-					})
+			for (var j=0; j < date_array.length; j++) {		
+				for (var m=0; m < ex_array[j].length ; m ++) {
+						allExercises.push({
+						created_at: ex_date[j][m],
+						exerciseid: ex_exerciseId[j][m],
+						trainee_id: ex_traineeId[j][m],
+						exercisetypename: ex_type[j][m],
+						exercisename: ex_exercisename[j][m],	
+						reps: (rep_array[j][m]).toString(),
+						wts: (wt_array[j][m]).toString()
+					})	
 				}
-			}
+			} 
+			console.log(allExercises, 'created')
+			$scope.allData = allExercises
 
 			$scope.listExcersizes = allExercises 
 			$scope.exercises = allExercises
+			selectExercises = allExercises
+			// console.log(selectExercises, 'selectExercises')
 			// $scope.listExcersizes = data
 			// $scope.exercises = data
 			$scope.count = allExercises.length
 			$scope.$broadcast('scroll.refreshComplete');
 			$scope.workoutTimeFrame = ''
+			
+			$scope.dateArray = date_array
+			
+
+			// console.log($scope.dateArray)
 		})
+
 	}
 	$scope.reloadTraineesExercise()
 
-
-
 	$scope.switchDate = function (selected) {
+		
+		var selected_date_array = []
+		var selected_date_array_indx = []
+
+		var one_day_ms = 24*60*60*1000
+		var num_days = 1
+
 		var allExercises = $scope.listExcersizes
 		key = selected;
 		switch (key) {
 
 			case 'week': 
+
 				var currentDate = Date.now()
-				var oneWeekAgo = new Date();
-				oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+				num_days = 7
+
+				//one_week in ms
+				var time_delta = one_day_ms*num_days
 				
+				//oneWeekAgo.setDate(oneWeekAgo. getDate() - 7);				
+				var end_date = currentDate - time_delta
+
 				var thisWeekExercises = [];
-				for(var i = 0; i < allExercises.length; i++) {
-					 allExercises[i].created_at = Number(allExercises[i].created_at)
-					 if(allExercises[i].created_at > oneWeekAgo) {
-					 		thisWeekExercises.push(allExercises[i])
-					 } 
+				var dates = $scope.dateArray
+
+				for (var k = 0; k <$scope.dateArray.length; k++) {
+					console.log($scope.dateArray, 'getting to week')
+					if (Date.parse($scope.dateArray[k]) > end_date) {
+						selected_date_array.push($scope.dateArray[k])
+						selected_date_array_indx.push(k)
+					}
 				}
+
+				
+				for (var j=0; j < selected_date_array.length; j++) {		
+					for (var m=0; m < ex_array[j].length ; m ++) {
+							thisWeekExercises.push({
+							created_at: ex_date[j][m],
+							exerciseid: ex_exerciseId[j][m],
+							trainee_id: ex_traineeId[j][m],
+							exercisetypename: ex_type[j][m],
+							exercisename: ex_exercisename[j][m],	
+							reps: (rep_array[j][m]).toString(),
+							wts: (wt_array[j][m]).toString()
+						})	
+					}
+				} 
+				selectExercises = thisWeekExercises
+				console.log(selectExercises, 'selectExercises')
+
+
+
+				// for(var i = 0; i < allExercises.length; i++) {
+				// 	 allExercises[i].created_at = Number(allExercises[i].created_at)
+					 
+				// 	 console.log("^^^^^")
+				// 	 console.log(allExercises[i].created_at)
+				// 	 console.log(end_date)
+				// 	 console.log(time_delta)
+
+				// 	 if(allExercises[i].created_at > end_date) {
+				// 	 		thisWeekExercises.push(allExercises[i])
+				// 	 } 
+				// }
+
 				$scope.exercises = thisWeekExercises;
 				$scope.count = thisWeekExercises.length
 				$scope.workoutTimeFrame = 'Workouts for last 7 days'
@@ -202,17 +251,48 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 				break;
 			case 'month':	
 				var currentDate = Date.now()
-				var oneMonthAgo = new Date();
-				oneMonthAgo.setDate(oneMonthAgo.getDate() - 30);
-				oneMonthAgo = Date.parse(oneMonthAgo)
+				// var oneMonthAgo = new Date();
+				// oneMonthAgo.setDate(oneMonthAgo.getDate() - 30);
+				// oneMonthAgo = Date.parse(oneMonthAgo)
+				num_days = 30
+				var time_delta = one_day_ms*num_days
+				var end_date = currentDate - time_delta
 				
 				var thisMonthExercises = [];
-				for(var i = 0; i < allExercises.length; i++) {
-					 allExercises[i].created_at = Number(allExercises[i].created_at)
-					 if(allExercises[i].created_at > oneMonthAgo) {
-					 		thisMonthExercises.push(allExercises[i])
-					 } 
+				// for(var i = 0; i < allExercises.length; i++) {
+				// 	 allExercises[i].created_at = Number(allExercises[i].created_at)
+				// 	 if(allExercises[i].created_at > oneMonthAgo) {
+				// 	 		thisMonthExercises.push(allExercises[i])
+				// 	 } 
+				// }
+
+				for(var k = 0; k < $scope.dateArray.length; k++) {
+					if(Date.parse($scope.dateArray[k]) > end_date) {
+						selected_date_array.push($scope.dateArray[k])
+						selected_date_array_indx.push(k)
+					}
+					console.log(selected_date_array_indx)
 				}
+
+				for (var j=0; j < selected_date_array.length; j++) {
+					
+					for (var m=0; m < ex_array[j].length ; m ++) {
+							
+							thisMonthExercises.push({
+							created_at: ex_date[j][m],
+							exerciseid: ex_exerciseId[j][m],
+							trainee_id: ex_traineeId[j][m],
+							exercisetypename: ex_type[j][m],
+							exercisename: ex_exercisename[j][m],	
+							reps: (rep_array[j][m]).toString(),
+							wts: (wt_array[j][m]).toString()
+						})	
+					}
+				}
+				selectExercises = thisMonthExercises;
+				console.log(selectExercises, 'selectExercises')
+
+
 				$scope.exercises = thisMonthExercises;
 				$scope.count = thisMonthExercises.length
 				$scope.workoutTimeFrame = 'Workouts for last 30 days'
@@ -226,16 +306,47 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 				break;
 			case "sixmonth":
 				var currentDate = Date.now()
-				var sixMonthAgo = new Date();
-				sixMonthAgo.setDate(sixMonthAgo.getDate() - 180);
-				sixMonthAgo = Date.parse(sixMonthAgo)
+				// var sixMonthAgo = new Date();
+				// sixMonthAgo.setDate(sixMonthAgo.getDate() - 180);
+				// sixMonthAgo = Date.parse(sixMonthAgo)
+				num_days = 180
+				var time_delta = one_day_ms*num_days
+				var end_date = currentDate - time_delta
 				var thisSixMonthExercises = [];
-				for(var i = 0; i < allExercises.length; i++) {
-					 allExercises[i].created_at = Number(allExercises[i].created_at)
-					 if(allExercises[i].created_at > sixMonthAgo) {
-					 		thisSixMonthExercises.push(allExercises[i])
-					 } 
+
+				// for(var i = 0; i < allExercises.length; i++) {
+				// 	 allExercises[i].created_at = Number(allExercises[i].created_at)
+				// 	 if(allExercises[i].created_at > sixMonthAgo) {
+				// 	 		thisSixMonthExercises.push(allExercises[i])
+				// 	 } 
+				// }
+				for(var k = 0; k < $scope.dateArray.length; k++) {
+					if(Date.parse($scope.dateArray[k]) > end_date) {
+						selected_date_array.push($scope.dateArray[k])
+						selected_date_array_indx.push(k)
+					}
+					console.log(selected_date_array_indx)
+				};
+
+				for (var j=0; j < selected_date_array.length; j++) {
+					
+					for (var m=0; m < ex_array[j].length ; m ++) {
+							
+						thisSixMonthExercises.push({
+							created_at: ex_date[j][m],
+							exerciseid: ex_exerciseId[j][m],
+							trainee_id: ex_traineeId[j][m],
+							exercisetypename: ex_type[j][m],
+							exercisename: ex_exercisename[j][m],	
+							reps: (rep_array[j][m]).toString(),
+							wts: (wt_array[j][m]).toString()
+							// reps: ex_reps[k][h]
+						})	
+					}
 				}
+				selectExercises = thisSixMonthExercises;
+				console.log(selectExercises, 'selectExercises')
+
 				$scope.exercises = thisSixMonthExercises;
 				$scope.count = thisSixMonthExercises.length
 				$scope.workoutTimeFrame = 'Workouts for last 180 days'
@@ -261,6 +372,11 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 		}
 	}
 
+	// $scope.filter_date_array = function(date_arr, start_date, end_date) {
+
+
+
+	// }
 
 	$scope.addExercise = function(exercise) {
 		exercise.trainer_id = angular.fromJson(window.localStorage['savedUser']).id
@@ -294,41 +410,82 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 
 	$scope.deleteExercise = function(exercise) {
 		mainFactory.deleteExercise(exercise, function(data){
-			$scope.exercises = data
+			// $scope.exercises = data
+			$scope.reloadTraineesExercise()
 		})
 	}
 
-	// $scope.$watch('grapherData', function(newValue, oldValue, scope) {
-	// 	$scope.grapherData = scope.grapherData;
-	// 	console.log($scope.grapherData, 'watcher')
-	// 	// chartData2 = $scope.grapherData
-	// })
 
 	$scope.getExerciseByName = function(name) {
 		var apiUrl = "https://vast-depths-36442.herokuapp.com"
 		var apiLocal = "http://localhost:8000"
-		$scope.exercises = $scope.listExcersizes
+		var counter = 0;
+		$scope.exercises = selectExercises
 		var filteredExercises = [];
-		for(var i = 0; i < $scope.exercises.length; i++) {
+		for(var i = 0; i < selectExercises.length; i++) {
 			if($scope.exercises[i].exercisename === name ){
 				filteredExercises.push($scope.exercises[i])
 			}
 		}
 		$scope.exercises = filteredExercises
 		$scope.count = $scope.exercises.length
-		var dataGraph = [];
-		for(var i = 0; i < $scope.exercises.length; i++) {
-			var id = $scope.exercises[i].exerciseid
+		console.log(selectExercises)
+
+				var wt_val = [0,0,0,0,0,0]
+				var wt_size =  [0,0,0,0,0,0]
+				for (var i=0; i < selectExercises.length; i++) {
+									// var wt_val = [0,0,0,0,0,0]
+									// var wt_size =  [0,0,0,0,0,0]
+					var split_wt = (selectExercises[i].wts).split(",")
+					var count = split_wt.length
+						for (var h = 0; h < count ; h++) {
+							wt_val[h] = split_wt[h]
+							wt_size[h] = 1
+						} 	
+
+					// var created_at = Date(selectExercises[i].created_at)
+					var created_at = selectExercises[i].created_at
+					// console.log(created_at, 'created')
+
+
+					graphData.push({
+						"date": moment(created_at).format('YYYY-MM-DD'), 
+						"ay": wt_val[0],
+						"by": wt_val[1],
+						"cy": wt_val[2],
+						"dy": wt_val[3],
+						"ey": wt_val[4],
+						"fy": wt_val[5],
+						 "aValue": wt_size[0],
+			       "bValue": wt_size[1],
+			       "cValue": wt_size[2],
+			       "dValue": wt_size[3],
+			       "eValue": wt_size[4],
+			       "fValue": wt_size[5]
+					})
+				}
+
+			$scope.minDate = Math.max.apply(Math, selectExercises.map(function(o){return o.created_at}))
+			$scope.maxDate = Math.min.apply(Math, selectExercises.map(function(o){return o.created_at}))
+			
+			$scope.minDate = moment($scope.minDate).format('YYYY-MM-DD')
+			$scope.maxDate = moment($scope.maxDate).format('YYYY-MM-DD')
+				console.log($scope.minDate)
+				console.log($scope.maxDate)
+				// console.log(graphData, 'graphdata')
+
+		// for(var i = 0; i < $scope.exercises.length; i++) {
+			// var id = $scope.exercises[i].exerciseid
 				// console.log(dbData, 'before sort')
 				// dbData.sort(function(a, b) {
 				// 	return a.created_at - b.created_at
 				// })
 				// console.log(dbData, 'after sort')
 
-			mainFactory.GetSetAndExercise(id, function(data) {
-				console.log(id)
-				var dbData = data
-				var count = data.length
+			// mainFactory.GetSetAndExercise(id, function(data) {
+				
+				var dbData = $scope.allData
+				var count = $scope.allData.length
 				var date_array = []
 				var date_array_count = []
 				//console.log(count)
@@ -338,38 +495,37 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
   		// 		wt_array[ii] = new Array(6);
 				// }
 
-				for(var x = 0; x < dbData.length; x++) {
-					dbData[x].created_at = Number(dbData[x].created_at)
-					dbData[x].created_at = new Date(dbData[x].created_at).toDateString('YYYY-MM-DD')
+
+
+				// for(var x = 0; x < dbData.length; x++) {
+				// 	dbData[x].created_at = Number(dbData[x].created_at)
+				// 	dbData[x].created_at = new Date(dbData[x].created_at).toDateString('YYYY-MM-DD')
 					
-					if (date_array.length > 0 ) {
-						var ind = date_array.indexOf(dbData[x].created_at)
-						if (ind != -1) {
+				// 	if (date_array.length > 0 ) {
+				// 		var ind = date_array.indexOf(dbData[x].created_at)
+				// 		if (ind != -1) {
 							
-							date_array_count[ind] = date_array_count[ind] + 1
-							//wt_array[ind][date_array_count[ind]] = dbData[x].weight 
+				// 			date_array_count[ind] = date_array_count[ind] + 1
+				// 			//wt_array[ind][date_array_count[ind]] = dbData[x].weight 
 						
-						} else {
-							// If date is not found - then add it to the array 
-							date_array.push(dbData[x].created_at)
-							date_array_count[date_array.length -1] = 1 
-							//wt_array[date_array.length -1][0] = dbData[x].weight
-						}
-					} else {
-						date_array.push(dbData[x].created_at)
-						date_array_count[0] = 1 
-					}
+				// 		} else {
+				// 			// If date is not found - then add it to the array 
+				// 			date_array.push(dbData[x].created_at)
+				// 			date_array_count[date_array.length -1] = 1 
+				// 			//wt_array[date_array.length -1][0] = dbData[x].weight
+				// 		}
+				// 	} else {
+				// 		date_array.push(dbData[x].created_at)
+				// 		date_array_count[0] = 1 
+				// 	}
 					
-					}
-					//console.log(date_array_count)
-				console.log(date_array)
+				// 	}
+				// 	console.log(date_array_count)
+				// 	console.log(date_array, "date array")
 
-
-				$scope.grapherData = dataGraph
-				//console.log($scope.grapherData, 'new object')
 				$scope.chart()
-			})
-		}		
+			// })
+		// }		
 	}	
 
 
@@ -439,7 +595,11 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 					// })
 			
 	$scope.chart = function () {
-			var chartData2 = $scope.grapherData
+
+		console.log("HERE")
+			var chartData2 = graphData
+			// console.log(chartData2, 'graph')
+
 			//console.log(chartData2, 'new data')
 			// var seconds = ((chartData[0].year % 60000) / 1000).toFixed(2).toString();
 			loadChart = function() {
@@ -526,27 +686,12 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 					        "axisAlpha": 0,
 					        "position": "bottom",
 					        "type": "date",
-					        "minimumDate": new Date(2014, 11, 31),
-					        "maximumDate": new Date(2015, 0, 13)
+					        "minimumDate": $scope.minDate,
+					        "maximumDate": $scope.maxDate
 					    }],
 					    "allLabels": [],
 					    "titles": [],
-					    "dataProvider": [{
-					        "date": "2015-01-01",
-					        "ay": 6.5,
-					        "by": 2.2,
-					        "cy": 4,
-					        "dy": 0,
-					        "ey": 0,
-					        "fy": 0,
-					        "aValue": 1,
-					        "bValue": 1,
-					        "cValue": 1,
-					        "dValue": 0,
-					        "eValue": 0,
-					        "fValue": 0
-					        
-					    }],
+					    "dataProvider": chartData2,
 
 					    "export": {
 					        "enabled": true
@@ -563,6 +708,7 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 					       "valueLineAlpha":0
 					    }
 				});
+						console.log(chart, "chart")
 			}
 			loadChart()
 	}
