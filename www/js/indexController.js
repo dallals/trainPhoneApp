@@ -98,12 +98,6 @@ app.controller('indexController', function($scope, $http, mainFactory, $location
 			$state.go('addtrainersexercises', {id: $stateParams.id})
 		};
 
-		// $scope.getTraineeId = function(trainee) {
-		// 	console.log(trainee)
-		// 	// var traineeId = id
-		// 	// return traineeId
-		// }
-
 })
 
 // app.controller('deviceController', function(){

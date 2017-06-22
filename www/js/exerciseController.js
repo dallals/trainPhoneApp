@@ -1,12 +1,8 @@
 app.controller('exerciseController', ["$scope", 'mainFactory','$http', '$location', '$stateParams', '$state', '$timeout', '$csv',
 	function($scope, mainFactory, $http, $location, $stateParams, $state, $timeout, $csv){
 
-
-		// console.log($stateParams.id, 'exercise')
-
-
 	mainFactory.getOneExercise($stateParams.id, function(data){
-		// window.ID37632 = $stateParams.id
+
 		$scope.exercises = data.data;
 	})
 
@@ -16,7 +12,6 @@ app.controller('exerciseController', ["$scope", 'mainFactory','$http', '$locatio
 
 	$scope.sendSet = function(set) {
 		mainFactory.addSet($stateParams.id, set, function(data){
-			// $state.go('exercise', {id: $scope.exercises[0].exerciseid})
 		})
 		mainFactory.getOneExercise($stateParams.id, function(data){
 			$scope.exercises = data.data

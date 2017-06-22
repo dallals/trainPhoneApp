@@ -6,7 +6,6 @@
 		var trainerTrainee = angular.fromJson(window.localStorage['savedUser'])
 
 		return {
-
 			login: function(trainer, compareEmail) {
 				if(trainer.email === compareEmail.trainer.email) {
 					loggedIn = window.localStorage.getItem('trainerLoggedIn') || true;
@@ -16,16 +15,8 @@
 	        window.localStorage.removeItem('savedUser');
 	        window.localStorage.removeItem('authToken');
 	        window.localStorage.removeItem('trainerLoggedIn');
-				}
-				
+				}				
 			},
-			// login: function() {
-				
-			// 	loggedIn = window.localStorage.getItem('trainerLoggedIn') || true;
-				
-			// },
-
-
 			compareTrainee: function(trainerTrainee, trainee) {
 				if(trainerTrainee.id === trainee.trainer_id){
 					isTrainersTrainee = true
@@ -34,11 +25,8 @@
 					return isTrainersTrainee
 				}
 			},
-
 			isLoggedIn: function() {
 				return loggedIn;
 			}
-
 		}
-
 	})

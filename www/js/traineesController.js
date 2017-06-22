@@ -20,6 +20,11 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 			var selectExercises = []
 			var graphData = []
 
+
+			var date_range_min = ""
+			var date_range_max = ""
+			$scope.hideGraph = false
+
 	mainFactory.getOneTrainee($stateParams.id, function(data){
 		var trainerTrainee = angular.fromJson(window.localStorage['savedUser'])
 		if(Trainer.compareTrainee(trainerTrainee, data.data[0]) === false) {
@@ -30,6 +35,9 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 	});
 
 		mainFactory.getAllYourExercises(trainer.id, function(data){
+			for(var i = 0; i < data.length; i++){
+				data[i].name = data[i].name.toLowerCase()
+			}
 			$scope.trainerexercises = data
 		})
 
@@ -67,6 +75,7 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 				ex_lastname.push(["0"])
 				ex_setId.push(["0"])
 				ex_date.push(["0"])
+				set_array.push(["0"])
 				//rep_array.push(["0"])
 				// ex_reps.push(["0"])
 				wt_array.push([0])
@@ -101,6 +110,9 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 						ex_lastname[indx][0] = data[n].last_name
 						ex_exercisename[indx][0] = data[n].exercisename
 						ex_date[indx][0] = data[n].created_at
+						/////
+						set_array[indx][0] = 1
+						/////
 						// ex_reps[indx][0] = data[n].reps
 						//rep_array[indx][0] = 1
 
@@ -119,7 +131,7 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 						ex_lastname[indx].push(data[n].last_name)
 						ex_date[indx].push(data[n].created_at)
 						// ex_reps[indx].push(data[n].reps)
-						//set_array[indx].push(1)
+						set_array[indx].push(1)
 
 						wt_array[indx].push([data[n].weight])
 						rep_array[indx].push([data[n].reps])
@@ -128,7 +140,7 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 
 				} else {
 
-					//set_array[indx][indx2] = set_array[indx][indx2] + 1
+					set_array[indx][indx2] = set_array[indx][indx2] + 1
 					wt_array[indx][indx2].push(data[n].weight)
 					rep_array[indx][indx2].push(data[n].reps)
 
@@ -150,7 +162,6 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 					})	
 				}
 			} 
-			console.log(allExercises, 'created')
 			$scope.allData = allExercises
 
 			$scope.listExcersizes = allExercises 
@@ -165,18 +176,15 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 			
 			$scope.dateArray = date_array
 			
-
-			// console.log($scope.dateArray)
 		})
 
 	}
 	$scope.reloadTraineesExercise()
 
 	$scope.switchDate = function (selected) {
-		
+		$scope.hideGraph = false
 		var selected_date_array = []
 		var selected_date_array_indx = []
-
 		var one_day_ms = 24*60*60*1000
 		var num_days = 1
 
@@ -185,27 +193,22 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 		switch (key) {
 
 			case 'week': 
-
 				var currentDate = Date.now()
 				num_days = 7
-
 				//one_week in ms
 				var time_delta = one_day_ms*num_days
-				
-				//oneWeekAgo.setDate(oneWeekAgo. getDate() - 7);				
+							
 				var end_date = currentDate - time_delta
-
 				var thisWeekExercises = [];
 				var dates = $scope.dateArray
 
 				for (var k = 0; k <$scope.dateArray.length; k++) {
-					console.log($scope.dateArray, 'getting to week')
+					// console.log($scope.dateArray, 'getting to week')
 					if (Date.parse($scope.dateArray[k]) > end_date) {
 						selected_date_array.push($scope.dateArray[k])
 						selected_date_array_indx.push(k)
 					}
 				}
-
 				
 				for (var j=0; j < selected_date_array.length; j++) {		
 					for (var m=0; m < ex_array[j].length ; m ++) {
@@ -222,9 +225,6 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 				} 
 				selectExercises = thisWeekExercises
 				console.log(selectExercises, 'selectExercises')
-
-
-
 				// for(var i = 0; i < allExercises.length; i++) {
 				// 	 allExercises[i].created_at = Number(allExercises[i].created_at)
 					 
@@ -374,8 +374,6 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 
 	// $scope.filter_date_array = function(date_arr, start_date, end_date) {
 
-
-
 	// }
 
 	$scope.addExercise = function(exercise) {
@@ -420,6 +418,7 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 		var apiUrl = "https://vast-depths-36442.herokuapp.com"
 		var apiLocal = "http://localhost:8000"
 		var counter = 0;
+		$scope.hideGraph = true
 		$scope.exercises = selectExercises
 		var filteredExercises = [];
 		for(var i = 0; i < selectExercises.length; i++) {
@@ -472,6 +471,10 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 			$scope.maxDate = moment($scope.maxDate).format('YYYY-MM-DD')
 				console.log($scope.minDate)
 				console.log($scope.maxDate)
+
+				date_range_min = $scope.minDate
+				date_range_max = $scope.maxDate
+
 				// console.log(graphData, 'graphdata')
 
 		// for(var i = 0; i < $scope.exercises.length; i++) {
@@ -685,10 +688,13 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 					        "id": "ValueAxis-2",
 					        "axisAlpha": 0,
 					        "position": "bottom",
+					        // "labelRotation": 45,
 					        "type": "date",
-					        "minimumDate": $scope.minDate,
-					        "maximumDate": $scope.maxDate
+					        "minPeriod": "dd",
+					        "minimumDate": new Date(date_range_min),
+					        "maximumDate": new Date(date_range_max)
 					    }],
+					    // case "bottom":c=0;e=k;g?(d=0,f=l):(d=l,f=l+1E3);break;
 					    "allLabels": [],
 					    "titles": [],
 					    "dataProvider": chartData2,
@@ -706,7 +712,8 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 					       "pan":true,
 					       "cursorAlpha":0,
 					       "valueLineAlpha":0
-					    }
+					    },
+
 				});
 						console.log(chart, "chart")
 			}
