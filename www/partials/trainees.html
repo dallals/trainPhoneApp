@@ -57,7 +57,7 @@
 		</div>
 		</ion-list>
 			<ion-list>
-				<ion-item ng-click="showExercise(exercise.exerciseid)" class="item-icon-right item-remove-animate" ng-repeat="exercise in exercises | filter: filter_name">
+				<ion-item ng-click="showExercise(exercise)" class="item-icon-right item-remove-animate" ng-repeat="exercise in exercises | filter: filter_name">
 					<div style="display: inline-block; width: 35%; border: 1px; border-color: #777; border-radius: 3px; margin: auto; height: 30px; text-align: center; vertical-align: top;" class="card-type ">
 						<span style = "font-size: 16px; ">{{exercise.exercisetypename}}</span>
 					</div>

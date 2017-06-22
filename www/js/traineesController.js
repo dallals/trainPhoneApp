@@ -383,11 +383,20 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 			$state.go('trainee', {id: $scope.trainee.id})
 		})
 	}
-
-	$scope.showExercise = function(id) {
-		$state.go('exercise', {id: id})
+///////////////////////////////////
+	$scope.showExercise = function(exercise) {
+		var trainer = angular.fromJson(window.localStorage.getItem('savedUser'))
+		exercise.traineefirstname = $scope.trainee.first_name
+		exercise.traineelastname = $scope.trainee.last_name
+		exercise.trainerfirstname = trainer.first_name
+		exercise.trainerlastname = trainer.last_name
+		// exercise.setid = allExercises.setid
+		exercise.trainerid = trainer.id
+		window.localStorage['traineeExercise'] = angular.toJson(exercise)
+		console.log(angular.fromJson(window.localStorage.getItem('traineeExercise')))
+		$state.go('exercise', {id: exercise.exerciseid})
 	}
-
+///////////////////////////////////
 	$scope.signUpTrainee = function (trainee) {
 		trainer_id = angular.fromJson(window.localStorage['savedUser']).id
 		trainee.trainer_id = trainer_id
