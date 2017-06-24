@@ -16,6 +16,7 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 			var ex_firstname = []
 			var ex_lastname = []
 			var wt_array = []
+			var c_array = []
 			var rep_array = []
 			var selectExercises = []
 			var graphData = []
@@ -80,15 +81,18 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 				// ex_reps.push(["0"])
 				wt_array.push([0])
 				rep_array.push([0])
+				c_array.push([0])
 			}
 
 			for (var b = 0; b < count_d; b++)  {
 
 				wt_array[b][0] = new Array(1)
 				rep_array[b][0] = new Array(1)
+				c_array[b][0] = new Array(1)
 
 				wt_array[b][0][0] = 0
 				rep_array[b][0][0] = 0
+				c_array[b][0][0] = 0
 
 			}
 
@@ -118,6 +122,7 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 
 						wt_array[indx][0][0] = data[n].weight
 						rep_array[indx][0][0] = data[n].reps
+						c_array[indx][0][0] = data[n].created_at
 
 					} else {
 						
@@ -135,6 +140,7 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 
 						wt_array[indx].push([data[n].weight])
 						rep_array[indx].push([data[n].reps])
+						c_array[indx].push([data[n].created_at])
 
 					}
 
@@ -143,6 +149,7 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 					set_array[indx][indx2] = set_array[indx][indx2] + 1
 					wt_array[indx][indx2].push(data[n].weight)
 					rep_array[indx][indx2].push(data[n].reps)
+					c_array[indx][indx2].push(data[n].created_at)
 
 
 				}
@@ -158,7 +165,8 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 						exercisetypename: ex_type[j][m],
 						exercisename: ex_exercisename[j][m],	
 						reps: (rep_array[j][m]).toString(),
-						wts: (wt_array[j][m]).toString()
+						wts: (wt_array[j][m]).toString(),
+						dates: (c_array[j][m]).toString()
 					})	
 				}
 			} 
@@ -219,7 +227,8 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 							exercisetypename: ex_type[j][m],
 							exercisename: ex_exercisename[j][m],	
 							reps: (rep_array[j][m]).toString(),
-							wts: (wt_array[j][m]).toString()
+							wts: (wt_array[j][m]).toString(),
+							dates: (c_array[j][m]).toString()
 						})	
 					}
 				} 
@@ -285,7 +294,8 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 							exercisetypename: ex_type[j][m],
 							exercisename: ex_exercisename[j][m],	
 							reps: (rep_array[j][m]).toString(),
-							wts: (wt_array[j][m]).toString()
+							wts: (wt_array[j][m]).toString(),
+							dates: (c_array[j][m]).toString()
 						})	
 					}
 				}
@@ -339,7 +349,8 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 							exercisetypename: ex_type[j][m],
 							exercisename: ex_exercisename[j][m],	
 							reps: (rep_array[j][m]).toString(),
-							wts: (wt_array[j][m]).toString()
+							wts: (wt_array[j][m]).toString(),
+							dates: (c_array[j][m]).toString()
 							// reps: ex_reps[k][h]
 						})	
 					}
@@ -383,7 +394,7 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 			$state.go('trainee', {id: $scope.trainee.id})
 		})
 	}
-///////////////////////////////////
+/////////////////////////////////////////////////////////////
 	$scope.showExercise = function(exercise) {
 		var trainer = angular.fromJson(window.localStorage.getItem('savedUser'))
 		exercise.traineefirstname = $scope.trainee.first_name
@@ -393,10 +404,9 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 		// exercise.setid = allExercises.setid
 		exercise.trainerid = trainer.id
 		window.localStorage['traineeExercise'] = angular.toJson(exercise)
-		console.log(angular.fromJson(window.localStorage.getItem('traineeExercise')))
 		$state.go('exercise', {id: exercise.exerciseid})
 	}
-///////////////////////////////////
+/////////////////////////////////////////////////////////////
 	$scope.signUpTrainee = function (trainee) {
 		trainer_id = angular.fromJson(window.localStorage['savedUser']).id
 		trainee.trainer_id = trainer_id
