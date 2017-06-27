@@ -25,7 +25,7 @@
 			<ion-item ng-click="showTrainee(trainee)" class="item-remove-animate item-icon-right item-thumbnail-left" ng-repeat="trainee in trainees | filter: filter_name" >
 				<img gravatar-src="trainee.email" gravatar-size="50" style="border-radius: 50%; height: 60px; width: 60px;">
 				<h3 style="margin-left: 15px;">{{trainee.first_name}} {{trainee.last_name}}</h3>
-				<!-- <h4>{{trainee.email}}</h4> -->
+								
 				<p style="margin-left: 15px;">{{trainee.created_at | date: 'MMM dd, yyyy h:mm a'}}</p>
 				<i style="margin-right: 15px; font-size: 16px;" class="icon ion-arrow-right-b"></i>
 				<ion-option-button class="button-assertive icon-left ion-trash-b" ng-click="removeTrainee(trainee)">Delete</ion-option-button>

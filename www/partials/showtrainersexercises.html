@@ -5,22 +5,12 @@
 	  </a>
 	</ion-nav-buttons>
 	<ion-content>
-<!-- 	<button class="button button-balanced button-block" ng-click="clientButton()" style="margin-top: 0px;">All Clients</button> -->
 	<ion-refresher pulling-text="Pull to refresh" on-refresh="reloadTrainersExercise()"></ion-refresher>
-<!-- 	<button ng-controller="indexController" class="button button-full button-balanced" ng-click="addTrainerExercises()" style="margin-top: 0px;">New Exercise</button> -->
 	<div style="margin: 15px;">
 		<button ng-controller="indexController" class="button button-block button-balanced" ng-click="addTrainerExercises()"><i class="ion-plus"></i> New Exercise</button>	
 	</div>
 		<ion-list>
 			<ion-item ng-click="showExercise(exercise.exerciseid)" class=" item-remove-animate card" ng-repeat="exercise in exercises">
-<!-- 			<div class="card padding" style="display: inline-block; width: 65%; height: 70px; vertical-align: top">
-				<div style="display: inline-block; width: 30%; margin: auto; height: 30px; text-align: center; vertical-align: center; vertical-align: top">
-					<span style = "font-size: 20px; font-weight: bold; vertical-align: top; line-height:20px">{{exercise.name}}</span>
-				</div>
-				<div style="display: inline-block; width: 60%; padding-left: 30px;  vertical-align: top;">
-						<span style="font-size: 16px; display: block; margin-bottom: 5px">Type: {{exercise.type}}</span>
-				</div>				
-			</div> -->
 			<ion-grid class="">
 				<ion-row>	
 					<ion-col col-6>

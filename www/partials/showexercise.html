@@ -5,7 +5,6 @@
 	  </a>
 	</ion-nav-buttons>
 	<ion-content>
-<!-- 	<button class="button button-balanced button-block" ng-click="clientButton()" style="margin-top: 0px;">All Clients</button> -->
 	<ion-refresher pulling-text="Pull to refresh" on-refresh="refreshSet()"></ion-refresher>
 	<h3 style="margin-left: 30px;">{{exercises[0].exercisename}}</h3>
 	<ion-item style="border: 0px;">
@@ -36,14 +35,7 @@
 				<ion-option-button class="button-assertive icon-left ion-trash-b" ng-click="removeSet(exercise.setid)">Delete</ion-option-button>
 			</ion-item>
 		</ion-list>
-<!-- 		<ion-item>
-		<div ng-controller="fileTransferController">
-			<button ng-click="upload(exercise)">Sendfile</button>
-		</div>
-			<ionlist>
-				<amcharts></amcharts>
-			</ionlist>
-		</ion-item> -->
+
 	</ion-content>
 	<div class="tabs tabs-icon-top" ng-controller="indexController">
 	  <a ng-click="loggerButtonWithId(exercises[0].trainerid)" class="tab-item">

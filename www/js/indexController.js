@@ -16,7 +16,6 @@ app.controller('indexController', function($scope, $http, mainFactory, $location
 				$ionicHistory.nextViewOptions({historyRoot: true})
 				window.localStorage['trainerLoggedIn'] = true
 				Trainer.login(trainer, oneTrainer)
-				// Trainer.login()
 				clearForm();
 				$state.go('trainers')
 			})
@@ -99,11 +98,3 @@ app.controller('indexController', function($scope, $http, mainFactory, $location
 		};
 
 })
-
-// app.controller('deviceController', function(){
-
-// 	document.addEventListener('deviceready', function() {
-// 		console.log('devise is' + angular.toJson(device));
-// 	})
-
-// })

@@ -7,34 +7,37 @@ app.controller('exerciseController', ["$scope", 'mainFactory','$http', '$locatio
 			$scope.exercise = angular.fromJson(window.localStorage.getItem('traineeExercise'))
 			var testData = angular.fromJson(window.localStorage.getItem('traineeExercise'))
 
+
 			$scope.counts = $scope.exercise.reps.split(',').length
 			var number = Number($scope.counts)
-			$scope.weight = $scope.exercise.reps.split(',')
-			$scope.reps = $scope.exercise.wts.split(',')
-
+			$scope.reps = $scope.exercise.reps.split(',')
+			$scope.weight = $scope.exercise.wts.split(',')
+			testData.reps = testData.reps.split(',')
+			testData.wts = testData.wts.split(',')
 			var newExercises = [];
 			var csvFileNames = [];
-				for(var i = 0; i < number; i++){
-					newExercises.push({
-						setname: 'placeholder',
-						created_at: testData.created_at,
-						exerciseid: testData.exerciseid,
-						exercisetypename: testData.exercisetypename,
-						reps: testData.reps,
-						trainee_id: testData.trainee_id,
-						wts: testData.wts,
-						traineefirstname: testData.traineefirstname,
-						traineelastname: testData.traineelastname,
-						trainerlastname: testData.trainerlastname,
-						trainerfirstname: testData.trainerfirstname,
-						trainerid: testData.trainerid,
-						fileName: 'Placeholder',
-						dates: testData.dates
-					})
-				}
 
-				
-				$scope.exercises = newExercises
+
+			for(var i = 0; i < number; i++){	
+				newExercises.push({
+					setname: 'placeholder',
+					created_at: testData.created_at,
+					exerciseid: testData.exerciseid,
+					exercisetypename: testData.exercisetypename,
+					reps: testData.reps,
+					trainee_id: testData.trainee_id,
+					wts: testData.wts,
+					traineefirstname: testData.traineefirstname,
+					traineelastname: testData.traineelastname,
+					trainerlastname: testData.trainerlastname,
+					trainerfirstname: testData.trainerfirstname,
+					trainerid: testData.trainerid,
+					fileName: 'Placeholder',
+					dates: testData.dates
+				})
+			}
+					
+			$scope.exercises = newExercises
 		
 
 			for(var i = 0; i < $scope.exercises.length; i++){
@@ -44,25 +47,18 @@ app.controller('exerciseController', ["$scope", 'mainFactory','$http', '$locatio
 			}
 
 			for(var i = 0; i<$scope.exercises.length; i++){
-				$scope.exercises[i].reps = $scope.exercises[i].reps.split(',')
-				$scope.exercises[i].wts = $scope.exercises[i].wts.split(',')
+				// $scope.exercises[i].reps = $scope.exercises[i].reps.split(',')
+				// $scope.exercises[i].wts = $scope.exercises[i].wts.split(',')
 				$scope.exercises[i].dates = $scope.exercises[i].dates.split(',')
 				$scope.exercises[i].reps = $scope.exercises[i].reps[i]
 				$scope.exercises[i].wts = $scope.exercises[i].wts[i]
 				$scope.exercises[i].dates = $scope.exercises[i].dates[i]
 			}
 
-			// for(var i = 0; i< $scope.exercises.length; i++) {
-			// 	csvFileNames.push(`${$scope.exercises[i].traineefirstname}_${$scope.exercises[i].traineelastname}_trainerId_${$scope.exercises[i].trainerid}_traineeId_${$scope.exercises[i].trainee_id}_reps_${$scope.exercises[i].reps}_weight_${$scope.exercises[i].wts}.csv`)
-			// 	$scope.exercises[i].fileName = `${$scope.exercises[i].traineefirstname}_${$scope.exercises[i].traineelastname}_trainerId_${$scope.exercises[i].trainerid}_traineeId_${$scope.exercises[i].trainee_id}_reps_${$scope.exercises[i].reps}_weight_${$scope.exercises[i].wts}.csv`
-			// }
-
 			for(var i = 0; i< $scope.exercises.length; i++) {
 				csvFileNames.push(`${$scope.exercises[i].traineefirstname}_${$scope.exercises[i].traineelastname}_trainerId_${$scope.exercises[i].trainerid}_traineeId_${$scope.exercises[i].trainee_id}_reps_${$scope.exercises[i].reps}_weight_${$scope.exercises[i].wts}_time_${$scope.exercises[i].dates}.csv`)
 				$scope.exercises[i].fileName = `${$scope.exercises[i].traineefirstname}_${$scope.exercises[i].traineelastname}_trainerId_${$scope.exercises[i].trainerid}_traineeId_${$scope.exercises[i].trainee_id}_reps_${$scope.exercises[i].reps}_weight_${$scope.exercises[i].wts}_time_${$scope.exercises[i].dates}.csv`
 			}
-			// console.log($scope.exercises)
-			// $cookies.putObject('csvFile', csvFileNames);
 			$scope.csvFileNames = csvFileNames
 	})
 

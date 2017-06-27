@@ -77,8 +77,7 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 				ex_setId.push(["0"])
 				ex_date.push(["0"])
 				set_array.push(["0"])
-				//rep_array.push(["0"])
-				// ex_reps.push(["0"])
+
 				wt_array.push([0])
 				rep_array.push([0])
 				c_array.push([0])
@@ -114,11 +113,7 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 						ex_lastname[indx][0] = data[n].last_name
 						ex_exercisename[indx][0] = data[n].exercisename
 						ex_date[indx][0] = data[n].created_at
-						/////
 						set_array[indx][0] = 1
-						/////
-						// ex_reps[indx][0] = data[n].reps
-						//rep_array[indx][0] = 1
 
 						wt_array[indx][0][0] = data[n].weight
 						rep_array[indx][0][0] = data[n].reps
@@ -175,9 +170,6 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 			$scope.listExcersizes = allExercises 
 			$scope.exercises = allExercises
 			selectExercises = allExercises
-			// console.log(selectExercises, 'selectExercises')
-			// $scope.listExcersizes = data
-			// $scope.exercises = data
 			$scope.count = allExercises.length
 			$scope.$broadcast('scroll.refreshComplete');
 			$scope.workoutTimeFrame = ''
@@ -233,19 +225,6 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 					}
 				} 
 				selectExercises = thisWeekExercises
-				console.log(selectExercises, 'selectExercises')
-				// for(var i = 0; i < allExercises.length; i++) {
-				// 	 allExercises[i].created_at = Number(allExercises[i].created_at)
-					 
-				// 	 console.log("^^^^^")
-				// 	 console.log(allExercises[i].created_at)
-				// 	 console.log(end_date)
-				// 	 console.log(time_delta)
-
-				// 	 if(allExercises[i].created_at > end_date) {
-				// 	 		thisWeekExercises.push(allExercises[i])
-				// 	 } 
-				// }
 
 				$scope.exercises = thisWeekExercises;
 				$scope.count = thisWeekExercises.length
@@ -268,12 +247,6 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 				var end_date = currentDate - time_delta
 				
 				var thisMonthExercises = [];
-				// for(var i = 0; i < allExercises.length; i++) {
-				// 	 allExercises[i].created_at = Number(allExercises[i].created_at)
-				// 	 if(allExercises[i].created_at > oneMonthAgo) {
-				// 	 		thisMonthExercises.push(allExercises[i])
-				// 	 } 
-				// }
 
 				for(var k = 0; k < $scope.dateArray.length; k++) {
 					if(Date.parse($scope.dateArray[k]) > end_date) {
@@ -316,20 +289,11 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 				break;
 			case "sixmonth":
 				var currentDate = Date.now()
-				// var sixMonthAgo = new Date();
-				// sixMonthAgo.setDate(sixMonthAgo.getDate() - 180);
-				// sixMonthAgo = Date.parse(sixMonthAgo)
 				num_days = 180
 				var time_delta = one_day_ms*num_days
 				var end_date = currentDate - time_delta
 				var thisSixMonthExercises = [];
 
-				// for(var i = 0; i < allExercises.length; i++) {
-				// 	 allExercises[i].created_at = Number(allExercises[i].created_at)
-				// 	 if(allExercises[i].created_at > sixMonthAgo) {
-				// 	 		thisSixMonthExercises.push(allExercises[i])
-				// 	 } 
-				// }
 				for(var k = 0; k < $scope.dateArray.length; k++) {
 					if(Date.parse($scope.dateArray[k]) > end_date) {
 						selected_date_array.push($scope.dateArray[k])
@@ -383,9 +347,6 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 		}
 	}
 
-	// $scope.filter_date_array = function(date_arr, start_date, end_date) {
-
-	// }
 
 	$scope.addExercise = function(exercise) {
 		exercise.trainer_id = angular.fromJson(window.localStorage['savedUser']).id
@@ -401,7 +362,6 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 		exercise.traineelastname = $scope.trainee.last_name
 		exercise.trainerfirstname = trainer.first_name
 		exercise.trainerlastname = trainer.last_name
-		// exercise.setid = allExercises.setid
 		exercise.trainerid = trainer.id
 		window.localStorage['traineeExercise'] = angular.toJson(exercise)
 		$state.go('exercise', {id: exercise.exerciseid})
@@ -427,7 +387,6 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 
 	$scope.deleteExercise = function(exercise) {
 		mainFactory.deleteExercise(exercise, function(data){
-			// $scope.exercises = data
 			$scope.reloadTraineesExercise()
 		})
 	}
@@ -461,10 +420,7 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 							wt_size[h] = 1
 						} 	
 
-					// var created_at = Date(selectExercises[i].created_at)
 					var created_at = selectExercises[i].created_at
-					// console.log(created_at, 'created')
-
 
 					graphData.push({
 						"date": moment(created_at).format('YYYY-MM-DD'), 
@@ -618,11 +574,7 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 			
 	$scope.chart = function () {
 
-		console.log("HERE")
 			var chartData2 = graphData
-			// console.log(chartData2, 'graph')
-
-			//console.log(chartData2, 'new data')
 			// var seconds = ((chartData[0].year % 60000) / 1000).toFixed(2).toString();
 			loadChart = function() {
 					// chartData2 = angular.toJson(chartData2)
@@ -734,7 +686,6 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 					    },
 
 				});
-						console.log(chart, "chart")
 			}
 			loadChart()
 	}
