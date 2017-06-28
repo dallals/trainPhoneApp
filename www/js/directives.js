@@ -6,9 +6,10 @@ app.directive('amcharts', function() {
 		template: '<div id="chartdiv" style="width:100%; height:500px;"></div>',
 		controller: function($scope, mainFactory, $http, $location, $stateParams, $state, $csv) {
 			$scope.chart = function () {
-				var Url = 'assets/SensorFusion.csv';
-
-				$http.get(Url).then(function(data) {
+				// var Url = 'assets/SensorFusion.csv';
+				var fileName = angular.fromJson(window.localStorage['fileName'])
+				var urlPath = 'http://localhost:8000/fileDataFiles/'+fileName
+				$http.get(urlPath).then(function(data) {
 					var chartData = $csv.convertStringToJson(data.data)
 					var dataChart = [];
 					$scope.setNameFromDataChart = [];

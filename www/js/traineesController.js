@@ -35,13 +35,6 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 		}	
 	});
 
-		mainFactory.getAllYourExercises(trainer.id, function(data){
-			for(var i = 0; i < data.length; i++){
-				data[i].name = data[i].name.toLowerCase()
-			}
-			$scope.trainerexercises = data
-		})
-
 
 	$scope.reloadTraineesExercise = function(){
 		mainFactory.getAllTraineeExercises($stateParams.id, function(data){
@@ -173,7 +166,19 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 			$scope.count = allExercises.length
 			$scope.$broadcast('scroll.refreshComplete');
 			$scope.workoutTimeFrame = ''
-			
+			var exerciseName = [];
+			var ind_x = -1
+			for(var i = 0; i < $scope.exercises.length; i++) {  //drop downlist
+				if (i != 0 ) {
+					ind_x = exerciseName.map(function(e) { return e.name; }).indexOf($scope.exercises[i].exercisename);
+				}
+				if (ind_x == -1) {
+					exerciseName.push({
+						name: $scope.exercises[i].exercisename
+					})
+				}		
+			}
+			$scope.trainerexercises = exerciseName
 			$scope.dateArray = date_array
 			
 		})
@@ -227,6 +232,19 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 				selectExercises = thisWeekExercises
 
 				$scope.exercises = thisWeekExercises;
+				var exerciseName = [];
+				var ind_x = -1
+				for(var i = 0; i < $scope.exercises.length; i++) {  //drop downlist
+					if (i != 0 ) {
+						ind_x = exerciseName.map(function(e) { return e.name; }).indexOf($scope.exercises[i].exercisename);
+					}
+					if (ind_x == -1) {
+						exerciseName.push({
+							name: $scope.exercises[i].exercisename
+						})
+					}		
+				}
+				$scope.trainerexercises = exerciseName
 				$scope.count = thisWeekExercises.length
 				$scope.workoutTimeFrame = 'Workouts for last 7 days'
 				$scope.isActive = function(cssclass) {
@@ -277,6 +295,19 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 
 
 				$scope.exercises = thisMonthExercises;
+				var exerciseName = [];
+				var ind_x = -1
+				for(var i = 0; i < $scope.exercises.length; i++) {  //drop downlist
+					if (i != 0 ) {
+						ind_x = exerciseName.map(function(e) { return e.name; }).indexOf($scope.exercises[i].exercisename);
+					}
+					if (ind_x == -1) {
+						exerciseName.push({
+							name: $scope.exercises[i].exercisename
+						})
+					}		
+				}
+				$scope.trainerexercises = exerciseName
 				$scope.count = thisMonthExercises.length
 				$scope.workoutTimeFrame = 'Workouts for last 30 days'
 				$scope.isActive = function(cssclass) {
@@ -321,6 +352,20 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 				}
 				selectExercises = thisSixMonthExercises;
 				console.log(selectExercises, 'selectExercises')
+				var exerciseName = [];
+				var exerciseName = [];
+				var ind_x = -1
+				for(var i = 0; i < $scope.exercises.length; i++) {  //drop downlist
+					if (i != 0 ) {
+						ind_x = exerciseName.map(function(e) { return e.name; }).indexOf($scope.exercises[i].exercisename);
+					}
+					if (ind_x == -1) {
+						exerciseName.push({
+							name: $scope.exercises[i].exercisename
+						})
+					}		
+				}
+				$scope.trainerexercises = exerciseName
 
 				$scope.exercises = thisSixMonthExercises;
 				$scope.count = thisSixMonthExercises.length
@@ -342,10 +387,37 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 					}
 				}
 				$scope.exercises = $scope.listExcersizes
+				var exerciseName = [];
+				var ind_x = -1
+				for(var i = 0; i < $scope.exercises.length; i++) {  //drop downlist
+					if (i != 0 ) {
+						ind_x = exerciseName.map(function(e) { return e.name; }).indexOf($scope.exercises[i].exercisename);
+					}
+					if (ind_x == -1) {
+						exerciseName.push({
+							name: $scope.exercises[i].exercisename
+						})
+					}		
+				}
+				$scope.trainerexercises = exerciseName
 				$scope.count = $scope.exercises.length
 				break 
 		}
 	}
+
+	// mainFactory.getAllYourExercises(trainer.id, function(data){
+	// 	for(var i = 0; i < data.length; i++){
+	// 		data[i].name = data[i].name.toLowerCase()
+	// 	}
+	// 	console.log($scope.exercises)
+	// 	var exerciseName = [];
+	// 	for(var i = 0; i < $scope.exercises.length; i++){  //drop downlist
+	// 		exerciseName.push({
+	// 			name: $scope.exercises[i].exercisename
+	// 		})
+	// 	}
+	// 	$scope.trainerexercises = exerciseName
+	// })
 
 
 	$scope.addExercise = function(exercise) {
@@ -408,12 +480,14 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 		$scope.count = $scope.exercises.length
 		console.log(selectExercises)
 
-				var wt_val = [0,0,0,0,0,0]
-				var wt_size =  [0,0,0,0,0,0]
+
 				for (var i=0; i < selectExercises.length; i++) {
 									// var wt_val = [0,0,0,0,0,0]
 									// var wt_size =  [0,0,0,0,0,0]
 					var split_wt = (selectExercises[i].wts).split(",")
+					var wt_val = [0,0,0,0,0,0]
+					var wt_size =  [0,0,0,0,0,0]
+
 					var count = split_wt.length
 						for (var h = 0; h < count ; h++) {
 							wt_val[h] = split_wt[h]
@@ -444,23 +518,14 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 			
 			$scope.minDate = moment($scope.minDate).format('YYYY-MM-DD')
 			$scope.maxDate = moment($scope.maxDate).format('YYYY-MM-DD')
-				console.log($scope.minDate)
-				console.log($scope.maxDate)
+				
+				$scope.minDate = $scope.minDate.toString();
+
+				date_range_min = '2017-01-17'
+				date_range_max = '2017-06-31'
 
 				date_range_min = $scope.minDate
 				date_range_max = $scope.maxDate
-
-				// console.log(graphData, 'graphdata')
-
-		// for(var i = 0; i < $scope.exercises.length; i++) {
-			// var id = $scope.exercises[i].exerciseid
-				// console.log(dbData, 'before sort')
-				// dbData.sort(function(a, b) {
-				// 	return a.created_at - b.created_at
-				// })
-				// console.log(dbData, 'after sort')
-
-			// mainFactory.GetSetAndExercise(id, function(data) {
 				
 				var dbData = $scope.allData
 				var count = $scope.allData.length
@@ -468,109 +533,9 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 				var date_array_count = []
 				//console.log(count)
 
-				// var wt_array = new Array(count);
-				// for (var ii = 0; ii < dbData.length; ii++) {
-  		// 		wt_array[ii] = new Array(6);
-				// }
-
-
-
-				// for(var x = 0; x < dbData.length; x++) {
-				// 	dbData[x].created_at = Number(dbData[x].created_at)
-				// 	dbData[x].created_at = new Date(dbData[x].created_at).toDateString('YYYY-MM-DD')
-					
-				// 	if (date_array.length > 0 ) {
-				// 		var ind = date_array.indexOf(dbData[x].created_at)
-				// 		if (ind != -1) {
-							
-				// 			date_array_count[ind] = date_array_count[ind] + 1
-				// 			//wt_array[ind][date_array_count[ind]] = dbData[x].weight 
-						
-				// 		} else {
-				// 			// If date is not found - then add it to the array 
-				// 			date_array.push(dbData[x].created_at)
-				// 			date_array_count[date_array.length -1] = 1 
-				// 			//wt_array[date_array.length -1][0] = dbData[x].weight
-				// 		}
-				// 	} else {
-				// 		date_array.push(dbData[x].created_at)
-				// 		date_array_count[0] = 1 
-				// 	}
-					
-				// 	}
-				// 	console.log(date_array_count)
-				// 	console.log(date_array, "date array")
-
-				$scope.chart()
-			// })
-		// }		
+				$scope.chart()	
 	}	
-
-
-	// for(var xx = 0; xx < date_array.length; xx++ ) {
-
-	// 	if (date_array_count[xx] == 1) {
-	// 					dataGraph.push({
-	// 					date: date_array[xx],
-	// 					ay: 1,
-	// 					by: 0,
-	// 					cy: 0,
-	// 					dy: 0,
-	// 					ey: 0,
-	// 					fy: 0,
-	// 					aVaule: 1,
-	// 					bVaule: 0,
-	// 					cVaule: 0,
-	// 					dVaule: 0,
-	// 					eVaule: 0,
-	// 					fVaule: 0
-	// 				})
-
-	// 	} else if (date_array_count[xx] == 2) {
-	// 		dataGraph.push({
-	// 					date: date_array[xx],
-	// 					ay: 1,
-	// 					by: 0,
-	// 					cy: 0,
-	// 					dy: 0,
-	// 					ey: 0,
-	// 					fy: 0,
-	// 					aVaule: 1,
-	// 					bVaule: 0,
-	// 					cVaule: 0,
-	// 					dVaule: 0,
-	// 					eVaule: 0,
-	// 					fVaule: 0
-	// 				})
-
-	// 	} else if (date_array_count[xx] == 3) {
-
-	// 	} else if (date_array_count[xx] == 4) {
-
-	// 	} else if (date_array_count[xx] == 5) {
-
-	// 	} else 
-
-	// 	}
-
-
-	// }
-
-					// dataGraph.push({
-					// 	date: dbData[x].created_at,
-					// 	ay: "helo" + String(x),
-					// 	by: dbDataw,
-					// 	cy: "helo" + String(x),
-					// 	dy: 100,
-					// 	ey: 0,
-					// 	fy: 0,
-					// 	aVaule: 0,
-					// 	bVaule: 0,
-					// 	cVaule: 0,
-					// 	dVaule: 0,
-					// 	eVaule: 0,
-					// 	fVaule: 0
-					// })
+	
 			
 	$scope.chart = function () {
 
@@ -662,8 +627,8 @@ app.controller('traineesController', function($scope, mainFactory, $stateParams,
 					        // "labelRotation": 45,
 					        "type": "date",
 					        "minPeriod": "dd",
-					        "minimumDate": new Date(date_range_min),
-					        "maximumDate": new Date(date_range_max)
+					        // "minimumDate": new Date(date_range_min),
+					        // "maximumDate": new Date(date_range_max)
 					    }],
 					    // case "bottom":c=0;e=k;g?(d=0,f=l):(d=l,f=l+1E3);break;
 					    "allLabels": [],

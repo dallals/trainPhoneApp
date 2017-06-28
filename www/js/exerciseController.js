@@ -93,8 +93,10 @@ app.controller('exerciseController', ["$scope", 'mainFactory','$http', '$locatio
 		})
 	}
 
-	$scope.graph = function(setid) {
-		$state.go('graph', {id: setid})
+	$scope.graph = function(exercise) {
+		console.log(exercise.fileName)
+		window.localStorage['fileName'] = angular.toJson(exercise.fileName)
+		$state.go('graph', {id: exercise.fileName})
 	}
 
 

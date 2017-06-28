@@ -12,7 +12,7 @@
     </div>
     <select name="Clients" id="Clients" ng-model="trainee" ng-change="showTraineeSelect(trainee)">
       <option>Select Client</option>
-      <option value="{{trainee.id}}" ng-repeat="trainee in trainees | filter: filter_name">{{trainee.last_name}} {{trainee.first_name}}</option>
+      <option value="{{trainee.id}}" ng-repeat="trainee in trainees | filter: filter_name">{{trainee.first_name}}</option>
       <option>
     </select>        
   </label>
@@ -24,7 +24,7 @@
 		<ion-list>
 			<ion-item ng-click="showTrainee(trainee)" class="item-remove-animate item-icon-right item-thumbnail-left" ng-repeat="trainee in trainees | filter: filter_name" >
 				<img gravatar-src="trainee.email" gravatar-size="50" style="border-radius: 50%; height: 60px; width: 60px;">
-				<h3 style="margin-left: 15px;">{{trainee.first_name}} {{trainee.last_name}}</h3>
+				<h3 style="margin-left: 15px;">{{trainee.first_name}}</h3>
 								
 				<p style="margin-left: 15px;">{{trainee.created_at | date: 'MMM dd, yyyy h:mm a'}}</p>
 				<i style="margin-right: 15px; font-size: 16px;" class="icon ion-arrow-right-b"></i>
